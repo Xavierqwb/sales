@@ -1,0 +1,2 @@
+# sales
+Homework of NetEase
