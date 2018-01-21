@@ -10,7 +10,8 @@
     <modules>
         <module>sales-dao</module>
         <module>sales-web</module>
-        <module>salesservice</module>
+        <module>sales-service</module>
+        <module>sales-common</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -29,6 +30,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
