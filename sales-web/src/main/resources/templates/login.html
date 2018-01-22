@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" charset="UTF-8" />
+
+    <!--<style type="text/css">-->
+        <!--.n-head{padding:10px 15px;margin:0 0 30px;background:#d22147;line-height:30px;}-->
+    <!--</style>-->
+</head>
+<body>
+<div class="n-support">请使用Chrome、Safari等webkit内核的浏览器！</div>
+<div class="n-head">
+    <div class="g-doc f-cb">
+        <div class="user">
+            请<a href="/sales/login">[登录]</a>
+        </div>
+        <ul class="nav">
+            <li><a href="/sales">首页</a></li>
+        </ul>
+    </div>
+</div>
+<form class="m-form m-form-ht n-login" id="loginForm" onsubmit="return false;" autocomplete="off">
+    <div class="fmitem">
+        <label class="fmlab">用户名：</label>
+        <div class="fmipt">
+            <input class="u-ipt" name="userName" autofocus="" />
+        </div>
+    </div>
+    <div class="fmitem">
+        <label class="fmlab">密码：</label>
+        <div class="fmipt">
+            <input class="u-ipt" type="password" name="password" />
+        </div>
+    </div>
+    <div class="fmitem fmitem-nolab fmitem-btn">
+        <div class="fmipt">
+            <button type="submit" class="u-btn u-btn-primary u-btn-lg u-btn-block">登 录</button>
+        </div>
+    </div>
+</form>
+<div class="n-foot">
+    <p>Xavier</p>
+</div>
+<script type="text/javascript" src="/js/md5.js"></script>
+<script type="text/javascript" src="/js/global.js"></script>
+<script type="text/javascript" src="/js/pageLogin.js"></script><div style="display: none;"></div>
+
+</body>
+</html>

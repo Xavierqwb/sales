@@ -14,4 +14,9 @@ public class PortalController {
 	public String homePage() {
 		return "homePage";
 	}
+
+	@RequestMapping("/login")
+	public String login() {
+		return "login";
+	}
 }
