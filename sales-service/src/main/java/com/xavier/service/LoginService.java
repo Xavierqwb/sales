@@ -1,4 +1,4 @@
-package service;
+package com.xavier.service;
 
 /**
  * Created by xavier on 2018/1/21.

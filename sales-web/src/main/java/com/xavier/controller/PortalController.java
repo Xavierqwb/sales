@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/sales")
 public class PortalController {
 
-	@RequestMapping("/")
+	@RequestMapping("")
 	public String homePage() {
-		return "homePage";
+		return "index";
 	}
 
 	@RequestMapping("/login")
