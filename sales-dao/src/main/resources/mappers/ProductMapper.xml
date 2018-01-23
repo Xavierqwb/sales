@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xavier.dao.ProductDao">
+    <resultMap id="productModelMap" type="com.xavier.model.ProductModel">
+        <result column="title" property="title"/>
+        <result column="desc" property="summary"/>
+        <result column="imgURL" property="image"/>
+        <result column="doc" property="detail"/>
+        <result column="price" property="price"/>
+    </resultMap>
+
+    <sql id="table">
+        `product`
+    </sql>
+
+    <select id="getProduct" resultMap="productModelMap" parameterType="java.lang.Integer">
+        SELECT * FROM <include refid="table"/>
+        WHERE id=#{id} AND deleted=0
+    </select>
+</mapper>
