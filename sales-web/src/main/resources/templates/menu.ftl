@@ -14,13 +14,17 @@
             <span>${name}!</span>
             <a href="javascript:quitLogin()">[退出]</a>
         </div>
+        <ul class="nav">
+            <li><a href="/sales">首页</a></li>
+            <li><a href="/sales/publish">发布</a></li>
+        </ul>
     <#else>
         <div class="user">
             请<a href="/sales/login">[登录]</a>
         </div>
-    </#if>
         <ul class="nav">
             <li><a href="/sales">首页</a></li>
         </ul>
+    </#if>
     </div>
 </div>
