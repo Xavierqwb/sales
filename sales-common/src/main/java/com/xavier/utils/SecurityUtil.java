@@ -4,9 +4,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
+ * md5加密工具类
  * Created by xavier on 2018/1/21.
  */
-public class Security {
+public class SecurityUtil {
 
 	public static String md5(String textPwd) {
 		MessageDigest messageDigest = null;

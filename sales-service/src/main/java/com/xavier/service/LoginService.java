@@ -1,9 +1,5 @@
 package com.xavier.service;
 
-import com.xavier.common.BaseResponse;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -12,7 +8,7 @@ import javax.servlet.http.HttpSession;
  */
 public interface LoginService {
 
-	BaseResponse login(String name, String md5Pwd, HttpServletRequest request, HttpServletResponse response);
+	boolean login(String name, String md5Pwd, HttpSession session);
 
 	void quit(HttpSession session);
 }

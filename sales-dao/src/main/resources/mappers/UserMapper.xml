@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xavier.dao.UserDao">
+    <resultMap id="userModelMap" type="com.xavier.model.UserModel">
+        <result column="id" property="id"/>
+        <result column="account" property="account"/>
+        <result column="md5_pwd" property="password"/>
+        <result column="type" property="type"/>
+        <result column="nick_name" property="nickName"/>
+    </resultMap>
+
+    <sql id="user_table">
+        `user`
+    </sql>
+
+    <sql id="product_table">
+        `product`
+    </sql>
+
+    <select id="getUser" resultMap="userModelMap">
+        SELECT *
+        FROM <include refid="user_table"/>
+        WHERE account=#{account}
+    </select>
+
+    <select id="verifyUser" resultMap="userModelMap">
+        SELECT *
+        FROM <include refid="user_table"/>
+        WHERE account=#{account}
+        AND md5_pwd=#{password}
+    </select>
+</mapper>

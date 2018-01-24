@@ -21,7 +21,20 @@
     </div>
     <div class="n-plist">
         <ul class="f-cb" id="plist">
+        <#list products>
+            <#items as product>
+                <li id="p-${product_index+1}">
+                    <a href="/show?id=#{product.id}" class="link">
+                        <div class="img"><img src="${product.image}" alt="${product.title}"></div>
+                        <h3>Java编程思想（第4版</h3>
+                        <div class="price"><span class="v-unit">¥</span>
+                            <span class="v-value">${product.price}</span>
+                        </div>
+                    </a>
 
+                </li>
+            </#items>
+        </#list>
         </ul>
     </div>
 </div>

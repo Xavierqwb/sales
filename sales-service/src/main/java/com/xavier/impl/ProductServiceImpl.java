@@ -7,6 +7,7 @@ import com.xavier.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
 import java.util.List;
 
@@ -25,9 +26,17 @@ public class ProductServiceImpl implements ProductService{
 	private ProductDao productDao;
 
 	@Override
-	public int publishProduct(ProductModel productModel) {
+	public void getProduct(int id, ModelMap map) {
+		ProductModel productModel = productDao.getProduct(id);
+		map.addAttribute("product", productModel);
+	}
+
+	@Override
+	public int publishProduct(String productFrom, ModelMap map) {
+		ProductModel productModel = ProductModel.parseProduct(productFrom);
 		int rows = productDao.insertProduct(productModel);
-		logger.info("{} product has been inserted, id is {}", rows, productModel.getId());
+		map.addAttribute("id", productModel.getId());
+		logger.info("{} product has been published, id is {}", rows, productModel.getId());
 		return productModel.getId();
 	}
 

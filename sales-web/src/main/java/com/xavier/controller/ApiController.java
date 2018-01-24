@@ -2,6 +2,7 @@ package com.xavier.controller;
 
 import com.xavier.common.BaseResponse;
 import com.xavier.service.LoginService;
+import com.xavier.utils.SecurityUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +42,23 @@ public class ApiController {
 	public BaseResponse login(@RequestParam(value = "userName") String name,
 	                          @RequestParam(value = "password") String password,
 	                          HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
-		return loginService.login(name, password, httpRequest, httpResponse);
+		BaseResponse baseResponse = new BaseResponse();
+
+		HttpSession session = httpRequest.getSession();
+		if (loginService.login(name, password, session)) {
+			logger.info("User[{}] logged in.", name);
+			session.setMaxInactiveInterval(1800);
+			Cookie cookie = new Cookie("JSESSIONID", session.getId());
+			cookie.setMaxAge(1800);
+			httpResponse.addCookie(cookie);
+
+			baseResponse.setMessage("登录成功");
+			baseResponse.setSuccess(true);
+			baseResponse.setCode(200);
+			return baseResponse;
+		}
+		baseResponse.setSuccess(false);
+		return baseResponse;
 	}
 
 	/**

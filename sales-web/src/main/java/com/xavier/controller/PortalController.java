@@ -1,6 +1,8 @@
 package com.xavier.controller;
 
+import com.xavier.model.CartRecordModel;
 import com.xavier.model.ProductModel;
+import com.xavier.service.CartService;
 import com.xavier.service.ProductService;
 
 import org.slf4j.Logger;
@@ -10,6 +12,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -26,12 +31,18 @@ public class PortalController {
 
 	@Resource
 	private ProductService productService;
+
+	@Resource
+	private CartService cartService;
+
 	/**
 	 * 首页接口
 	 * @return 返回首页
 	 */
 	@RequestMapping("")
-	public String homePage() {
+	public String homePage(ModelMap map) {
+		List<ProductModel> productModelList = productService.listProduct();
+		map.addAttribute("products", productModelList);
 		return "index";
 	}
 
@@ -55,18 +66,29 @@ public class PortalController {
 
 	/**
 	 * 发布成功页面接口
-	 * @param input 传入的参数，表单格式
+	 * @param productForm 传入的参数，表单格式
 	 * @param map ModelMap，向前端传递参数
 	 * @return 发布成功页面
 	 */
 	@RequestMapping(value = "/publishSubmit", method = RequestMethod.POST)
-	public String publishSubmit(@RequestBody String input,
+	public String publishSubmit(@RequestBody String productForm,
 	                            ModelMap map) {
-		ProductModel productModel = ProductModel.parseProduct(input);
-		int id = productService.publishProduct(productModel);
-		map.addAttribute("id", id);
-		logger.info("A product with id:{} has been published.", id);
+		productService.publishProduct(productForm, map);
 		return "publishSubmit";
+	}
+
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public String showProduct(@RequestParam(value = "id") Integer id,
+	                          ModelMap map) {
+		productService.getProduct(id, map);
+		return "show";
+	}
+
+	@RequestMapping(value = "/settleAccount")
+	public String cart(ModelMap map){
+		List<CartRecordModel> cartRecordModels = cartService.listProductsInCart();
+		map.addAttribute("cartRecords", cartRecordModels);
+		return "settleAccount";
 	}
 
 	/**

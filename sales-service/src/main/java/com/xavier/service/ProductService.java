@@ -2,6 +2,8 @@ package com.xavier.service;
 
 import com.xavier.model.ProductModel;
 
+import org.springframework.ui.ModelMap;
+
 import java.util.List;
 
 /**
@@ -11,11 +13,19 @@ import java.util.List;
 public interface ProductService {
 
 	/**
+	 * 根据ID返回商品
+	 * @param id 主键ID
+	 * @param map 返回前端的模型
+	 */
+	void getProduct(int id, ModelMap map);
+
+	/**
 	 * 发布商品的接口，保存到db中
-	 * @param productModel 商品数据
+	 * @param productFrom 商品数据
+	 * @param map 返回前端的模型
 	 * @return 数据库改动记录
 	 */
-	int publishProduct(ProductModel productModel);
+	int publishProduct(String productFrom, ModelMap map);
 
 	/**
 	 * 删除商品的接口，在db中逻辑删除
