@@ -3,8 +3,8 @@
 <mapper namespace="com.xavier.dao.CartDao">
     <resultMap id="cartModelMap" type="com.xavier.model.CartRecordModel">
         <result column="id" property="id"/>
-        <result column="title" property="name"/>
-        <result column="num" property="number"/>
+        <result column="title" property="title"/>
+        <result column="num" property="num"/>
         <result column="price" property="price"/>
     </resultMap>
 

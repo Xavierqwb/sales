@@ -1,15 +1,20 @@
 package com.xavier.controller;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.xavier.common.BaseResponse;
+import com.xavier.model.BuyModel;
 import com.xavier.service.LoginService;
 import com.xavier.utils.SecurityUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -68,5 +73,13 @@ public class ApiController {
 	@RequestMapping("/quit")
 	public void quit(HttpServletRequest request) {
 		loginService.quit(request.getSession());
+	}
+
+	@RequestMapping("/buy")
+	@ResponseBody
+	public BaseResponse buy(@RequestBody List<BuyModel> buyModelList) {
+		BaseResponse baseResponse = new BaseResponse();
+		logger.info("{}", buyModelList);
+		return baseResponse;
 	}
 }

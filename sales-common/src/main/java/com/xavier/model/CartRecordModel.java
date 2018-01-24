@@ -11,9 +11,9 @@ public class CartRecordModel {
 
 	private int id;
 
-	private String name;
+	private String title;
 
-	private Integer number;
+	private Integer num;
 
 	private Long price;
 }

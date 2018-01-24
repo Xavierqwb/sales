@@ -4,6 +4,7 @@ import com.xavier.model.CartRecordModel;
 import com.xavier.model.ProductModel;
 import com.xavier.service.CartService;
 import com.xavier.service.ProductService;
+import com.xavier.utils.JsonUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -85,9 +90,17 @@ public class PortalController {
 	}
 
 	@RequestMapping(value = "/settleAccount")
-	public String cart(ModelMap map){
+	public String cart(HttpServletResponse response){
 		List<CartRecordModel> cartRecordModels = cartService.listProductsInCart();
-		map.addAttribute("cartRecords", cartRecordModels);
+		String json = JsonUtils.toJson(cartRecordModels);
+		Cookie cookie = null;
+		try {
+			cookie = new Cookie("products", URLEncoder.encode(json, "utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			logger.info("{}", e);
+		}
+		logger.info("{}", json);
+		response.addCookie(cookie);
 		return "settleAccount";
 	}
 
@@ -104,9 +117,9 @@ public class PortalController {
 				map.addAttribute("isLogin", true);
 			}
 			if (!map.containsAttribute("name")) {
-				map.addAttribute("name", session.getAttribute("name"));
+				map.addAttribute("name", session.getAttribute("title"));
 			} else {
-				map.replace("name", session.getAttribute("name"));
+				map.replace("name", session.getAttribute("title"));
 			}
 		}
 	}

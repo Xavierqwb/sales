@@ -49,7 +49,7 @@
         },
         getCookie: function (name) {
             var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
-            result && (result = JSON.parse(result[1]));
+            result && (result = JSON.parse(decodeURIComponent(result[1])));
             return result;
         },
         setCookie: function (name, value) {
