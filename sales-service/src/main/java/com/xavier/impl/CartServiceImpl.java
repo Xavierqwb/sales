@@ -1,6 +1,8 @@
 package com.xavier.impl;
 
 import com.xavier.dao.CartDao;
+import com.xavier.dao.FinanceDao;
+import com.xavier.model.BuyModel;
 import com.xavier.model.CartRecordModel;
 import com.xavier.service.CartService;
 
@@ -20,8 +22,16 @@ public class CartServiceImpl implements CartService{
 	@Resource
 	private CartDao cartDao;
 
+	@Resource
+	private FinanceDao financeDao;
+
 	@Override
 	public List<CartRecordModel> listProductsInCart() {
 		return cartDao.listProducts();
+	}
+
+	@Override
+	public void butProducts(List<BuyModel> buyModelList) {
+		financeDao.insertRecords(buyModelList);
 	}
 }

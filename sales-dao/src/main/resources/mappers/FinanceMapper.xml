@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xavier.dao.FinanceDao">
+    <resultMap id="financeModelMap" type="com.xavier.model.FinanceModel">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="product_id" property="productId"/>
+        <result column="num" property="num"/>
+        <result column="purchase_time" property="purchaseTime"/>
+    </resultMap>
+
+    <sql id="finance_table">
+        `finance`
+    </sql>
+
+    <sql id="product_table">
+        `product`
+    </sql>
+
+    <insert id="insertRecords" parameterType="com.xavier.model.BuyModel" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO <include refid="finance_table"/>
+        (`user_id`, `product_id`, `num`)
+        VALUES
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            2,#{item.id},#{item.number}
+        </foreach>
+    </insert>
+</mapper>

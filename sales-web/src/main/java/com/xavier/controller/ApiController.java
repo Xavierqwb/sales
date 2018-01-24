@@ -1,10 +1,9 @@
 package com.xavier.controller;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import com.xavier.common.BaseResponse;
 import com.xavier.model.BuyModel;
+import com.xavier.service.CartService;
 import com.xavier.service.LoginService;
-import com.xavier.utils.SecurityUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +32,9 @@ public class ApiController {
 
 	@Resource
 	private LoginService loginService;
+
+	@Resource
+	private CartService cartService;
 
 	/**
 	 * 登录认证接口
@@ -79,7 +81,9 @@ public class ApiController {
 	@ResponseBody
 	public BaseResponse buy(@RequestBody List<BuyModel> buyModelList) {
 		BaseResponse baseResponse = new BaseResponse();
-		logger.info("{}", buyModelList);
+		cartService.butProducts(buyModelList);
+		baseResponse.setCode(200);
+		baseResponse.setSuccess(true);
 		return baseResponse;
 	}
 }
