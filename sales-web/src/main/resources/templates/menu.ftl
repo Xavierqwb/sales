@@ -16,7 +16,9 @@
         </div>
         <ul class="nav">
             <li><a href="/sales">首页</a></li>
+            <#if name='seller'>
             <li><a href="/sales/publish">发布</a></li>
+            </#if>
         </ul>
     <#else>
         <div class="user">

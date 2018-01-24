@@ -1,16 +1,22 @@
 package com.xavier.dao;
 
-import com.xavier.aop.MybatisDao;
+import com.xavier.annotation.MybatisDao;
 import com.xavier.model.ProductModel;
 
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
 /**
  * 用于操作产品发布和删除
  * Created by xavier on 2018/1/23.
  */
-@Repository
+@MybatisDao
 public interface ProductDao {
 
-	public ProductModel getProduct(int id);
+	ProductModel getProduct(int id);
+
+	List<ProductModel> listProducts();
+
+	Integer insertProduct(ProductModel productModel);
+
+	Integer deleteProduct(int id);
 }

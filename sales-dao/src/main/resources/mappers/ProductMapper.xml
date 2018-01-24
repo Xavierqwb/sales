@@ -3,9 +3,9 @@
 <mapper namespace="com.xavier.dao.ProductDao">
     <resultMap id="productModelMap" type="com.xavier.model.ProductModel">
         <result column="title" property="title"/>
-        <result column="desc" property="summary"/>
-        <result column="imgURL" property="image"/>
-        <result column="doc" property="detail"/>
+        <result column="summary" property="summary"/>
+        <result column="image" property="image"/>
+        <result column="detail" property="detail"/>
         <result column="price" property="price"/>
     </resultMap>
 
@@ -15,6 +15,26 @@
 
     <select id="getProduct" resultMap="productModelMap" parameterType="java.lang.Integer">
         SELECT * FROM <include refid="table"/>
-        WHERE id=#{id} AND deleted=0
+        WHERE id=#{id} AND deleted=1
     </select>
+
+    <select id="listProducts" resultMap="productModelMap">
+        SELECT * FROM <include refid="table"/>
+        WHERE deleted=1
+    </select>
+
+    <insert id="insertProduct" parameterType="com.xavier.model.ProductModel" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO <include refid="table"/>
+        (`title`, `summary`, `image`, `detail`, price)
+        VALUE
+        (#{title},#{summary},#{image},#{detail},#{price})
+    </insert>
+
+    <update id="deleteProduct" parameterType="java.lang.Integer">
+        UPDATE <include refid="table"/>
+        SET deleted=0
+        WHERE id=#{id}
+        LIMIT 1
+    </update>
 </mapper>

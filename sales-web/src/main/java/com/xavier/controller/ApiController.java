@@ -41,28 +41,7 @@ public class ApiController {
 	public BaseResponse login(@RequestParam(value = "userName") String name,
 	                          @RequestParam(value = "password") String password,
 	                          HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
-		BaseResponse baseResponse = new BaseResponse();
-		boolean isLogin = loginService.login(name, password);
-
-		if (isLogin) {
-			logger.info("User[" + name + "] logged in.");
-			HttpSession session = httpRequest.getSession();
-			session.setAttribute("name", name);
-			session.setAttribute("password", password);
-			session.setAttribute("isLogin", true);
-			session.setMaxInactiveInterval(1800);
-			Cookie cookie = new Cookie("JSESSIONID", session.getId());
-			cookie.setMaxAge(1800);
-			httpResponse.addCookie(cookie);
-
-			baseResponse.setMessage("登录成功");
-			baseResponse.setSuccess(true);
-			baseResponse.setCode(200);
-			return baseResponse;
-		}
-
-		baseResponse.setSuccess(false);
-		return baseResponse;
+		return loginService.login(name, password, httpRequest, httpResponse);
 	}
 
 	/**
@@ -71,10 +50,6 @@ public class ApiController {
 	 */
 	@RequestMapping("/quit")
 	public void quit(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		session.removeAttribute("isLogin");
-		String name = (String) session.getAttribute("name");
-		session.removeAttribute("name");
-		logger.info("User[" + name + " quited.");
+		loginService.quit(request.getSession());
 	}
 }

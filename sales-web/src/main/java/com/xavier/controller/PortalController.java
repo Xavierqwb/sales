@@ -1,6 +1,7 @@
 package com.xavier.controller;
 
 import com.xavier.model.ProductModel;
+import com.xavier.service.ProductService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -22,6 +24,8 @@ public class PortalController {
 
 	private Logger logger = LoggerFactory.getLogger(PortalController.class);
 
+	@Resource
+	private ProductService productService;
 	/**
 	 * 首页接口
 	 * @return 返回首页
@@ -58,9 +62,10 @@ public class PortalController {
 	@RequestMapping(value = "/publishSubmit", method = RequestMethod.POST)
 	public String publishSubmit(@RequestBody String input,
 	                            ModelMap map) {
-		map.addAttribute("id", 1);
 		ProductModel productModel = ProductModel.parseProduct(input);
-		logger.info(productModel.toString());
+		int id = productService.publishProduct(productModel);
+		map.addAttribute("id", id);
+		logger.info("A product with id:{} has been published.", id);
 		return "publishSubmit";
 	}
 
