@@ -34,7 +34,6 @@ $('add').onclick = function (e) {
     var id = ele && ele.dataset.id;
     var title = ele && ele.dataset.title;
     var price = ele && ele.dataset.price;
-    alert(price);
     var num = $('allNum').innerHTML;
     var productDetail = {'id': id, 'price': price, 'title': title, 'num': num};
     var name = 'productsAddToCart';

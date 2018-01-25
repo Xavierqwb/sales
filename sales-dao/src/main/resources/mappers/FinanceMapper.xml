@@ -23,8 +23,8 @@
         INSERT INTO <include refid="finance_table"/>
         (`user_id`, `product_id`, `num`, `price`)
         VALUES
-        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
-            2,#{item.id},#{item.number},#{item.price}
+        <foreach collection="list" item="item" index="index" separator=",">
+            (2,#{item.id},#{item.number},#{item.price})
         </foreach>
     </insert>
 

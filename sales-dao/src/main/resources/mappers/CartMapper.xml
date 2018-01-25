@@ -23,6 +23,8 @@
         <foreach collection="list" item="item" separator=",">
             (2, #{item.id}, #{item.num})
         </foreach>
+        ON DUPLICATE KEY
+        UPDATE `num` = `num` + VALUES(num)
     </insert>
 
     <select id="listProducts" resultMap="cartModelMap">
@@ -32,4 +34,10 @@
         ON a.product_id=b.id
         WHERE a.deleted=1
     </select>
+
+    <update id="deleteAll">
+        UPDATE <include refid="cart_table"/>
+        SET `deleted`=0
+        WHERE `deleted`=1
+    </update>
 </mapper>

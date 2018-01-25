@@ -15,4 +15,6 @@ public interface CartDao {
 	List<CartRecordModel> listProducts();
 
 	int insertProductRecords(List<CartRecordModel> cartRecordModels);
+
+	int deleteAll();
 }
