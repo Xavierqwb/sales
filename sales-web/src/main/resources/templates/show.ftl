@@ -13,7 +13,7 @@
             <h2>${product.title}</h2>
             <p class="summary">${product.summary}</p>
             <div class="price">
-                <span class="v-unit">¥</span><span class="v-value">${product.price}</span>
+                <span class="v-unit">¥</span><span class="v-value">${product.price/100}</span>
             </div>
             <div class="num">购买数量：<span id="plusNum" class="lessNum"><a>-</a></span><span class="totalNum" id="allNum"></span><span id="addNum" class="moreNum"><a>+</a></span></div>
             <div class="oprt f-cb">

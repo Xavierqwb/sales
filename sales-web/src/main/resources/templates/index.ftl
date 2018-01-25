@@ -28,7 +28,7 @@
                         <div class="img"><img src="${product.image}" alt="${product.title}"></div>
                         <h3>Java编程思想（第4版</h3>
                         <div class="price"><span class="v-unit">¥</span>
-                            <span class="v-value">${product.price}</span>
+                            <span class="v-value">${product.price/100}</span>
                         </div>
                     </a>
 

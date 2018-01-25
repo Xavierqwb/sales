@@ -12,6 +12,10 @@ public class FinanceModel {
 
 	private int id;
 
+	private String title;
+
+	private Long price;
+
 	private int userId;
 
 	private int productId;

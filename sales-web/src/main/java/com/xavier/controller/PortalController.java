@@ -1,8 +1,10 @@
 package com.xavier.controller;
 
 import com.xavier.model.CartRecordModel;
+import com.xavier.model.FinanceModel;
 import com.xavier.model.ProductModel;
 import com.xavier.service.CartService;
+import com.xavier.service.FinanceService;
 import com.xavier.service.ProductService;
 import com.xavier.utils.JsonUtils;
 
@@ -39,6 +41,9 @@ public class PortalController {
 
 	@Resource
 	private CartService cartService;
+
+	@Resource
+	private FinanceService financeService;
 
 	/**
 	 * 首页接口
@@ -78,6 +83,7 @@ public class PortalController {
 	@RequestMapping(value = "/publishSubmit", method = RequestMethod.POST)
 	public String publishSubmit(@RequestBody String productForm,
 	                            ModelMap map) {
+		logger.info(productForm);
 		productService.publishProduct(productForm, map);
 		return "publishSubmit";
 	}
@@ -102,6 +108,16 @@ public class PortalController {
 		logger.info("{}", json);
 		response.addCookie(cookie);
 		return "settleAccount";
+	}
+
+	@RequestMapping("/account")
+	public String account(ModelMap map) {
+		List<FinanceModel> financeModels = financeService.listFinances();
+		Long totalPrice = financeModels.stream().mapToLong(f -> f.getNum() * f.getPrice()).sum();
+		logger.info("{}", financeModels);
+		map.addAttribute("finances", financeModels);
+		map.addAttribute("totalPrice", totalPrice);
+		return "account";
 	}
 
 	/**

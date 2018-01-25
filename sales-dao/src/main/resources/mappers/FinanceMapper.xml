@@ -3,6 +3,8 @@
 <mapper namespace="com.xavier.dao.FinanceDao">
     <resultMap id="financeModelMap" type="com.xavier.model.FinanceModel">
         <result column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="price" property="price"/>
         <result column="user_id" property="userId"/>
         <result column="product_id" property="productId"/>
         <result column="num" property="num"/>
@@ -25,4 +27,12 @@
             2,#{item.id},#{item.number}
         </foreach>
     </insert>
+
+    <select id="listFinances" resultMap="financeModelMap">
+        SELECT f.id as id, p.`title` as `title`, p.price as price, f.`product_id` as productId,
+        f.`num` as `num`, f.`purchase_time` as purchase_time
+        FROM <include refid="finance_table"/> f
+        LEFT JOIN <include refid="product_table"/> p
+        ON f.`product_id`=p.`id`
+    </select>
 </mapper>

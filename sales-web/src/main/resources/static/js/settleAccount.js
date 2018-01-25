@@ -27,7 +27,7 @@
               "<span class=\"totalNum\" id=\"allNum\">" + products[i].num + "</span>" +
               "<span id=\"thisId\">" + products[i].id + "</span>" +
               "<span class=\"moreNum\">"+ "+" + "</span>" + "</td>" +
-              "<td>" + products[i].price + "</td>" +
+              "<td>" + products[i].price/100 + "</td>" +
               "</tr>";
     }
 

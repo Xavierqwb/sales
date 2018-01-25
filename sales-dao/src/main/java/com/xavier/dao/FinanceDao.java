@@ -2,6 +2,7 @@ package com.xavier.dao;
 
 import com.xavier.annotation.MybatisDao;
 import com.xavier.model.BuyModel;
+import com.xavier.model.FinanceModel;
 
 import java.util.List;
 
@@ -17,4 +18,10 @@ public interface FinanceDao {
 	 * @return 修改的记录行数
 	 */
 	int insertRecords(List<BuyModel> buyModelList);
+
+	/**
+	 * 返回已购买记录
+	 * @return 已购买记录列表
+	 */
+	List<FinanceModel> listFinances();
 }
