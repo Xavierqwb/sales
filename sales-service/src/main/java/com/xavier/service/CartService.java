@@ -21,5 +21,12 @@ public interface CartService {
 	 * 对购物车的商品进行购买
 	 * @param buyModelList 购买的商品ID、数量的列表
 	 */
-	void butProducts(List<BuyModel> buyModelList);
+	void buyProducts(List<BuyModel> buyModelList);
+
+	/**
+	 * 将商品加入购物车
+	 * @param cartRecordModels 商品记录列表
+	 * @return 加入的数量
+	 */
+	int addProductsToCart(List<CartRecordModel> cartRecordModels);
 }

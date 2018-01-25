@@ -24,4 +24,11 @@ public interface FinanceDao {
 	 * @return 已购买记录列表
 	 */
 	List<FinanceModel> listFinances();
+
+	/**
+	 * 根据product_id查找已购买的商品
+	 * @param id 商品id
+	 * @return 已购买的商品
+	 */
+	FinanceModel getFinanceModel(int id);
 }

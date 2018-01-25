@@ -21,18 +21,23 @@
 
     <insert id="insertRecords" parameterType="com.xavier.model.BuyModel" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO <include refid="finance_table"/>
-        (`user_id`, `product_id`, `num`)
+        (`user_id`, `product_id`, `num`, `price`)
         VALUES
         <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
-            2,#{item.id},#{item.number}
+            2,#{item.id},#{item.number},#{item.price}
         </foreach>
     </insert>
 
     <select id="listFinances" resultMap="financeModelMap">
-        SELECT f.id as id, p.`title` as `title`, p.price as price, f.`product_id` as productId,
+        SELECT f.id as id, p.`title` as `title`, f.price as price, f.`product_id` as productId,
         f.`num` as `num`, f.`purchase_time` as purchase_time
         FROM <include refid="finance_table"/> f
         LEFT JOIN <include refid="product_table"/> p
         ON f.`product_id`=p.`id`
+    </select>
+
+    <select id="getFinanceModel" resultMap="financeModelMap">
+        SELECT * FROM <include refid="finance_table"/>
+        WHERE product_id=#{id}
     </select>
 </mapper>

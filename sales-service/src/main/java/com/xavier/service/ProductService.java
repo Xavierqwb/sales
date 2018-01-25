@@ -40,4 +40,16 @@ public interface ProductService {
 	 */
 	List<ProductModel> listProduct();
 
+	/**
+	 * 查询未购买的商品列表
+	 * @return 未购买的商品列表
+	 */
+	List<ProductModel> notBoughtProductList();
+
+	/**
+	 * 查询已购买的商品列表
+	 * @return 已购买的商品列表
+	 */
+	List<ProductModel> boughtProductList();
+
 }

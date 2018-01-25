@@ -19,4 +19,8 @@ public interface ProductDao {
 	Integer insertProduct(ProductModel productModel);
 
 	Integer deleteProduct(int id);
+
+	List<ProductModel> notBuyProducts();
+
+	List<ProductModel> buyProducts();
 }

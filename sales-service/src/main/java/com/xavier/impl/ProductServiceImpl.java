@@ -1,8 +1,11 @@
 package com.xavier.impl;
 
+import com.xavier.dao.FinanceDao;
 import com.xavier.dao.ProductDao;
+import com.xavier.model.FinanceModel;
 import com.xavier.model.ProductModel;
 import com.xavier.service.ProductService;
+import com.xavier.utils.DataTransferUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +28,15 @@ public class ProductServiceImpl implements ProductService{
 	@Resource
 	private ProductDao productDao;
 
+	@Resource
+	private FinanceDao financeDao;
+
 	@Override
 	public void getProduct(int id, ModelMap map) {
 		ProductModel productModel = productDao.getProduct(id);
-		map.addAttribute("product", productModel);
+		FinanceModel financeModel = financeDao.getFinanceModel(id);
+
+		map.addAttribute("product", DataTransferUtil.toProductShowDTO(productModel, financeModel));
 	}
 
 	@Override
@@ -54,5 +62,15 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public List<ProductModel> listProduct() {
 		return productDao.listProducts();
+	}
+
+	@Override
+	public List<ProductModel> notBoughtProductList() {
+		return productDao.notBuyProducts();
+	}
+
+	@Override
+	public List<ProductModel> boughtProductList() {
+		return productDao.buyProducts();
 	}
 }

@@ -2,6 +2,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xavier.dao.ProductDao">
     <resultMap id="productModelMap" type="com.xavier.model.ProductModel">
+        <result column="id" property="id"/>
         <result column="title" property="title"/>
         <result column="summary" property="summary"/>
         <result column="image" property="image"/>
@@ -9,32 +10,55 @@
         <result column="price" property="price"/>
     </resultMap>
 
-    <sql id="table">
+    <sql id="product_table">
         `product`
     </sql>
 
+    <sql id="finance_table">
+        `finance`
+    </sql>
+
+
     <select id="getProduct" resultMap="productModelMap" parameterType="java.lang.Integer">
-        SELECT * FROM <include refid="table"/>
+        SELECT * FROM <include refid="product_table"/>
         WHERE id=#{id} AND deleted=1
     </select>
 
     <select id="listProducts" resultMap="productModelMap">
-        SELECT * FROM <include refid="table"/>
+        SELECT * FROM <include refid="product_table"/>
         WHERE deleted=1
     </select>
 
     <insert id="insertProduct" parameterType="com.xavier.model.ProductModel" useGeneratedKeys="true"
             keyProperty="id">
-        INSERT INTO <include refid="table"/>
+        INSERT INTO <include refid="product_table"/>
         (`title`, `summary`, `image`, `detail`, price)
         VALUE
         (#{title},#{summary},#{image},#{detail},#{price})
     </insert>
 
     <update id="deleteProduct" parameterType="java.lang.Integer">
-        UPDATE <include refid="table"/>
+        UPDATE <include refid="product_table"/>
         SET deleted=0
         WHERE id=#{id}
         LIMIT 1
     </update>
+
+    <select id="notBuyProducts" resultMap="productModelMap">
+        SELECT p.`id` as `id`, p.`title` as `title`, p.`summary` as summary, p.`image` as `image`,
+        p.`detail` as `detail`, p.`price` as `price`
+        FROM <include refid="product_table"/> p
+        LEFT JOIN <include refid="finance_table"/> f
+        ON p.id=f.product_id
+        WHERE f.id is NULL
+        AND p.deleted = 1
+    </select>
+
+    <select id="buyProducts" resultMap="productModelMap">
+        SELECT p.`id` as `id`, p.`title` as `title`, p.`summary` as summary, p.`image` as `image`,
+        p.`detail` as `detail`, f.`price` as `price`
+        FROM <include refid="finance_table"/> f
+        LEFT JOIN <include refid="product_table"/> p
+        ON p.id=f.product_id
+    </select>
 </mapper>

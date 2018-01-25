@@ -11,4 +11,6 @@ public class BuyModel {
 	private int id;
 
 	private int number;
+
+	private Long price;
 }

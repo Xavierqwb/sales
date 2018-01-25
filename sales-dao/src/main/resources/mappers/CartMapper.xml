@@ -16,6 +16,15 @@
         `product`
     </sql>
 
+    <insert id="insertProductRecords" parameterType="com.xavier.model.CartRecordModel" useGeneratedKeys="true">
+        INSERT INTO <include refid="cart_table"/>
+        (`user_id`, `product_id`, `num`)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (2, #{item.id}, #{item.num})
+        </foreach>
+    </insert>
+
     <select id="listProducts" resultMap="cartModelMap">
         SELECT a.product_id as `id`, b.title as `title`, a.num as `num`, b.price as `price`
         FROM <include refid="cart_table"/> a

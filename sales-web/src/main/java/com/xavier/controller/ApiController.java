@@ -81,7 +81,7 @@ public class ApiController {
 	@ResponseBody
 	public BaseResponse buy(@RequestBody List<BuyModel> buyModelList) {
 		BaseResponse baseResponse = new BaseResponse();
-		cartService.butProducts(buyModelList);
+		cartService.buyProducts(buyModelList);
 		baseResponse.setCode(200);
 		baseResponse.setSuccess(true);
 		return baseResponse;
