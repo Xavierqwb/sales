@@ -34,7 +34,7 @@
     </div>
     <div class="n-plist">
         <ul class="f-cb" id="plist">
-        <#if notBuyFlag=0>
+        <#if notBuyFlag=0 || !userModel??>
             <#list boughtProducts>
                 <#items as product>
                     <li id="p-${product_index+1}">

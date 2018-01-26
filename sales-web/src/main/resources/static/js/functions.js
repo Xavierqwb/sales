@@ -5,5 +5,5 @@ function quitLogin() {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/sales/api/quit", false);
     xhr.send(null);
-    location.reload(true);
+    self.location.replace("/sales");
 }
