@@ -4,6 +4,7 @@ import com.xavier.common.BaseResponse;
 import com.xavier.model.BuyModel;
 import com.xavier.service.CartService;
 import com.xavier.service.LoginService;
+import com.xavier.service.ProductService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,9 @@ public class ApiController {
 
 	@Resource
 	private CartService cartService;
+
+	@Resource
+	private ProductService productService;
 
 	/**
 	 * 登录认证接口
@@ -89,6 +93,20 @@ public class ApiController {
 		cartService.buyProducts(buyModelList);
 		baseResponse.setCode(200);
 		baseResponse.setSuccess(true);
+		return baseResponse;
+	}
+
+	@RequestMapping("/delete")
+	@ResponseBody
+	public BaseResponse deleteProduct(@RequestParam("id") int id) {
+		BaseResponse baseResponse = new BaseResponse();
+		baseResponse.setCode(405);
+		baseResponse.setSuccess(false);
+		if (productService.deleteProduct(id)) {
+			baseResponse.setSuccess(true);
+			baseResponse.setCode(200);
+			baseResponse.setMessage("删除成功");
+		}
 		return baseResponse;
 	}
 }

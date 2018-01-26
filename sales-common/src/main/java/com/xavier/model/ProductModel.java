@@ -38,7 +38,7 @@ public class ProductModel {
 			// ignore
 			e.printStackTrace();
 		}
-		productModel.setId(Integer.valueOf(propsMap.get("id")));
+//		productModel.setId(Integer.valueOf(propsMap.get("id")));
 		productModel.setTitle(propsMap.get("title"));
 		productModel.setSummary(propsMap.get("summary"));
 		productModel.setImage(propsMap.get("image"));

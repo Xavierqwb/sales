@@ -70,7 +70,10 @@
                             <span class="v-value">${product.price/100}</span>
                         </div>
                     </a>
-
+                    <#if userModel?? && userModel.type=0>
+                        <span class="u-btn u-btn-normal u-btn-xs del"
+                              data-del="${product.id}">删除</span>
+                    </#if>
                 </li>
             </#items>
         </#list>
@@ -79,5 +82,7 @@
 </div>
 <#include "footer.ftl">
 </body>
+<script type="text/javascript" src="/js/global.js"></script>
+<script type="text/javascript" src="/js/pageIndex.js"></script>
 <script type="text/javascript" src="/js/functions.js"></script>
 </html>
