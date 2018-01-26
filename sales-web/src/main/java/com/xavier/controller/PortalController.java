@@ -119,8 +119,7 @@ public class PortalController {
 						logger.info("{}", e);
 						// ignore
 					}
-					List<CartRecordModel>
-						cartRecordModelList =
+					List<CartRecordModel> cartRecordModelList =
 						JsonUtils.readList(value, CartRecordModel.class);
 					logger.info("Add records to cart {}.", cartRecordModelList);
 					cartService.addProductsToCart(cartRecordModelList);

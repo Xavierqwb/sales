@@ -36,7 +36,9 @@ public class CartServiceImpl implements CartService{
 
 	@Override
 	public void buyProducts(List<BuyModel> buyModelList) {
-		financeDao.insertRecords(buyModelList);
+		if (buyModelList.size() > 0) {
+			financeDao.insertRecords(buyModelList);
+		}
 		cartDao.deleteAll();
 	}
 

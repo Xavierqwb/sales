@@ -39,9 +39,10 @@ public class ApiController {
 
 	/**
 	 * 登录认证接口
-	 * @param name 用户名
-	 * @param password md5加密后的密码
-	 * @param httpRequest HttpServletRequest对象，用来提取Session
+	 *
+	 * @param name         用户名
+	 * @param password     md5加密后的密码
+	 * @param httpRequest  HttpServletRequest对象，用来提取Session
 	 * @param httpResponse HttpServletResponse对象，用来返回Cookie
 	 * @return 返回认证结果
 	 */
@@ -71,6 +72,7 @@ public class ApiController {
 
 	/**
 	 * 退出登录接口，退出清除session标志
+	 *
 	 * @param request HttpServletRequest对象，用来提取Session
 	 */
 	@RequestMapping("/quit")
@@ -82,7 +84,8 @@ public class ApiController {
 	@ResponseBody
 	public BaseResponse buy(@RequestBody List<BuyModel> buyModelList) {
 		BaseResponse baseResponse = new BaseResponse();
-		buyModelList = buyModelList.stream().filter(buyModel -> buyModel.getNumber()>0).collect(Collectors.toList());
+		buyModelList = buyModelList.stream()
+			.filter(buyModel -> buyModel.getNumber() > 0).collect(Collectors.toList());
 		cartService.buyProducts(buyModelList);
 		baseResponse.setCode(200);
 		baseResponse.setSuccess(true);
