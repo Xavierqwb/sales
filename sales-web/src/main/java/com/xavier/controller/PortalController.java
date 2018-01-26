@@ -6,6 +6,7 @@ import com.xavier.model.ProductModel;
 import com.xavier.service.CartService;
 import com.xavier.service.FinanceService;
 import com.xavier.service.ProductService;
+import com.xavier.utils.DataTransferUtil;
 import com.xavier.utils.JsonUtils;
 
 import org.slf4j.Logger;
@@ -128,7 +129,10 @@ public class PortalController {
 				}
 			}
 		}
-		productService.getProduct(id, map);
+
+		ProductModel productModel = productService.getProduct(id);
+		FinanceModel financeModel = financeService.getFinanceModel(id);
+		map.addAttribute("product", DataTransferUtil.toProductShowDTO(productModel, financeModel));
 		return "show";
 	}
 
@@ -155,6 +159,23 @@ public class PortalController {
 		map.addAttribute("finances", financeModels);
 		map.addAttribute("totalPrice", totalPrice);
 		return "account";
+	}
+
+	@RequestMapping("/edit")
+	public String edit(@RequestParam("id") int id, ModelMap map) {
+		ProductModel productModel = productService.getProduct(id);
+		map.addAttribute("product", productModel);
+		return "edit";
+	}
+
+	@RequestMapping("/editSubmit")
+	public String editSubmit(@RequestParam("id") int id, @RequestBody String editProductForm,
+	                         ModelMap map) {
+		ProductModel productModel = ProductModel.parseProduct(editProductForm);
+		productService.editProduct(id, productModel);
+		logger.info("edit product: {}", productModel);
+		map.addAttribute("id", id);
+		return "editSubmit";
 	}
 
 	/**

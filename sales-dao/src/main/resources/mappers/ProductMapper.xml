@@ -37,6 +37,13 @@
         (#{title},#{summary},#{image},#{detail},#{price})
     </insert>
 
+    <insert id="updateProduct">
+        UPDATE <include refid="product_table"/>
+        SET `title`=#{product.title}, `summary`=#{product.summary}, `image`=#{product.image},
+        `detail`=#{product.detail}, `price`=#{product.price}
+        WHERE `id`=#{id}
+    </insert>
+
     <update id="deleteProduct" parameterType="java.lang.Integer">
         UPDATE <include refid="product_table"/>
         SET deleted=0

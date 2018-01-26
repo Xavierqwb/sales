@@ -23,4 +23,9 @@ public class FinanceServiceImpl implements FinanceService{
 	public List<FinanceModel> listFinances() {
 		return financeDao.listFinances();
 	}
+
+	@Override
+	public FinanceModel getFinanceModel(int id) {
+		return financeDao.getFinanceModel(id);
+	}
 }

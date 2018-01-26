@@ -1,7 +1,10 @@
 package com.xavier.model;
 
+import com.xavier.utils.FormToMapUtil;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.Map;
 
 import lombok.Data;
 
@@ -28,24 +31,19 @@ public class ProductModel {
 
 	public static ProductModel parseProduct(String input) {
 		ProductModel productModel = new ProductModel();
-		String[] props = input.split("&");
-		String title = props[0].substring(6);
-		String summary = props[1].substring(8);
-		String image = props[3].substring(6);
-		String detail = props[5].substring(7);
+		Map<String, String> propsMap = null;
 		try {
-			title = URLDecoder.decode(title, CHARSET);
-			summary = URLDecoder.decode(summary, CHARSET);
-			image = URLDecoder.decode(image, CHARSET);
-			detail = URLDecoder.decode(detail, CHARSET);
+			propsMap = FormToMapUtil.formToMap(URLDecoder.decode(input, CHARSET));
 		} catch (UnsupportedEncodingException e) {
+			// ignore
 			e.printStackTrace();
 		}
-		productModel.setTitle(title);
-		productModel.setSummary(summary);
-		productModel.setImage(image);
-		productModel.setDetail(detail);
-		productModel.setPrice((long) Math.floor(Double.valueOf(props[6].substring(6)) * 100));
+		productModel.setId(Integer.valueOf(propsMap.get("id")));
+		productModel.setTitle(propsMap.get("title"));
+		productModel.setSummary(propsMap.get("summary"));
+		productModel.setImage(propsMap.get("image"));
+		productModel.setDetail(propsMap.get("detail"));
+		productModel.setPrice((long) Math.floor(Double.valueOf(propsMap.get("price")) * 100));
 
 		return productModel;
 	}

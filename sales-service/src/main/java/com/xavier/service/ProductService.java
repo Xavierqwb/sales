@@ -15,9 +15,8 @@ public interface ProductService {
 	/**
 	 * 根据ID返回商品
 	 * @param id 主键ID
-	 * @param map 返回前端的模型
 	 */
-	void getProduct(int id, ModelMap map);
+	ProductModel getProduct(int id);
 
 	/**
 	 * 发布商品的接口，保存到db中
@@ -26,6 +25,14 @@ public interface ProductService {
 	 * @return 数据库改动记录
 	 */
 	int publishProduct(String productFrom, ModelMap map);
+
+	/**
+	 * 编辑商品属性
+	 * @param id 商品ID
+	 * @param productModel 商品属性
+	 * @return 修改行数
+	 */
+	int editProduct(int id, ProductModel productModel);
 
 	/**
 	 * 删除商品的接口，在db中逻辑删除

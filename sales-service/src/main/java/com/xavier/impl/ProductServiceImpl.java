@@ -28,15 +28,9 @@ public class ProductServiceImpl implements ProductService{
 	@Resource
 	private ProductDao productDao;
 
-	@Resource
-	private FinanceDao financeDao;
-
 	@Override
-	public void getProduct(int id, ModelMap map) {
-		ProductModel productModel = productDao.getProduct(id);
-		FinanceModel financeModel = financeDao.getFinanceModel(id);
-
-		map.addAttribute("product", DataTransferUtil.toProductShowDTO(productModel, financeModel));
+	public ProductModel getProduct(int id) {
+		return productDao.getProduct(id);
 	}
 
 	@Override
@@ -46,6 +40,11 @@ public class ProductServiceImpl implements ProductService{
 		map.addAttribute("id", productModel.getId());
 		logger.info("{} product has been published, id is {}", rows, productModel.getId());
 		return productModel.getId();
+	}
+
+	@Override
+	public int editProduct(int id, ProductModel productModel) {
+		return productDao.updateProduct(id, productModel);
 	}
 
 	@Override

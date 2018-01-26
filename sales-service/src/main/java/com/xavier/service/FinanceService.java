@@ -10,4 +10,6 @@ import java.util.List;
 public interface FinanceService {
 
 	List<FinanceModel> listFinances();
+
+	FinanceModel getFinanceModel(int id);
 }
