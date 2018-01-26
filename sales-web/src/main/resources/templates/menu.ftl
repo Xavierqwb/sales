@@ -33,3 +33,4 @@
     </#if>
     </div>
 </div>
+<script type="text/javascript" src="/js/functions.js"></script>

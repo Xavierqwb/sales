@@ -55,11 +55,11 @@
             </div>
             <div class="fmitem fmitem-nolab fmitem-btn">
                 <div class="fmipt">
-                    <button type="submit" class="u-btn u-btn-primary u-btn-lg">发 布</button>
+                    <button type="submit" class="u-btn u-btn-primary u-btn-lg" id="publish">发 布</button>
                 </div>
             </div>
         </form>
-        <span class="imgpre"><img src="../image/test.jpg" alt="" id="imgpre"></span>
+        <span class="imgpre"><img src="" alt="" id="imgpre"></span>
     </div>
 </div>
 <#include "footer.ftl">
