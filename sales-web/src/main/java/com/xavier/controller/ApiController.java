@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
@@ -30,7 +34,13 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/sales/api")
 public class ApiController {
 
-	private Logger logger = LoggerFactory.getLogger(ApiController.class);
+	private final Logger logger = LoggerFactory.getLogger(ApiController.class);
+
+	private static final String IMAGE_DIR_PATH = "sales-web/src/main/resources/static/image/";
+
+	private static final String RETURN_IMAGE_PATH_PREFIX = "../image/";
+
+	private static final Random RANDOM = new Random(17);
 
 	@Resource
 	private LoginService loginService;
@@ -100,12 +110,35 @@ public class ApiController {
 	@ResponseBody
 	public BaseResponse deleteProduct(@RequestParam("id") int id) {
 		BaseResponse baseResponse = new BaseResponse();
-		baseResponse.setCode(405);
+		baseResponse.setCode(0);
 		baseResponse.setSuccess(false);
 		if (productService.deleteProduct(id)) {
 			baseResponse.setSuccess(true);
 			baseResponse.setCode(200);
 			baseResponse.setMessage("删除成功");
+		}
+		return baseResponse;
+	}
+
+	@RequestMapping("/upload")
+	@ResponseBody
+	public BaseResponse<String> upload(@RequestParam("file") MultipartFile multipartFile) {
+		BaseResponse<String> baseResponse = new BaseResponse<>();
+		baseResponse.setCode(0);
+		if (multipartFile != null && multipartFile.getSize() > 0) {
+			String originFileName = multipartFile.getOriginalFilename();
+			String fileName = System.currentTimeMillis() + RANDOM.nextInt(100)
+			                  + originFileName.substring(originFileName.lastIndexOf("."));
+			try {
+				File file = new File(IMAGE_DIR_PATH + fileName);
+				file = file.getAbsoluteFile();
+				multipartFile.transferTo(file);
+				logger.info("Save file: {}", fileName);
+			} catch (IOException e) {
+				return baseResponse;
+			}
+			baseResponse.setCode(200);
+			baseResponse.setData(RETURN_IMAGE_PATH_PREFIX + fileName);
 		}
 		return baseResponse;
 	}

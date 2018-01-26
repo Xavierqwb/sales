@@ -11,9 +11,9 @@ import org.springframework.context.annotation.ImportResource;
 @SpringBootApplication
 @ComponentScan("com.xavier")
 @ImportResource("classpath:spring.xml")
-public class SalasApp {
+public class SalesApp {
 
 	public static void main(String[] args){
-		SpringApplication.run(SalasApp.class, args);
+		SpringApplication.run(SalesApp.class, args);
 	}
 }

@@ -29,4 +29,8 @@ public class UserServiceImpl implements UserService {
 		System.out.println(userModel);
 		return userModel;
 	}
+
+	public static void main(String[] args){
+
+	}
 }
