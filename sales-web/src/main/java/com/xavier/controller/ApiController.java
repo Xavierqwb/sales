@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -81,6 +82,7 @@ public class ApiController {
 	@ResponseBody
 	public BaseResponse buy(@RequestBody List<BuyModel> buyModelList) {
 		BaseResponse baseResponse = new BaseResponse();
+		buyModelList = buyModelList.stream().filter(buyModel -> buyModel.getNumber()>0).collect(Collectors.toList());
 		cartService.buyProducts(buyModelList);
 		baseResponse.setCode(200);
 		baseResponse.setSuccess(true);
