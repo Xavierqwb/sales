@@ -12,7 +12,5 @@ import org.apache.ibatis.annotations.Param;
 @MybatisDao
 public interface UserDao {
 
-	UserModel getUser(String account);
-
 	UserModel verifyUser(@Param("account") String account, @Param("password") String password);
 }

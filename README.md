@@ -14,6 +14,8 @@
 
 在本地的MySQL中添加指定的表，参考[DDL](ddl.sql)
 
+在[application.properties](sales-web/src/main/resources/application.properties)中修改MySQL的配置
+
 ## 运行方式
 > 使用IDE，直接运行sales-web模块下的SalesApp中的main方法，该方法唯一缺陷即不能在运行中加载新添加的资源，即上传的图片无法读取，重启应用后才可以看到
 

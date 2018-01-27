@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>java</title>
+    <title>购物车</title>
     <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body>

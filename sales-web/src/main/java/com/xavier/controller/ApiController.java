@@ -107,6 +107,11 @@ public class ApiController {
 		return baseResponse;
 	}
 
+	/**
+	 * 删除商品的接口
+	 * @param id 被删除商品的ID
+	 * @return json串
+	 */
 	@RequestMapping("/delete")
 	@ResponseBody
 	public BaseResponse deleteProduct(@RequestParam("id") int id) {
@@ -121,6 +126,11 @@ public class ApiController {
 		return baseResponse;
 	}
 
+	/**
+	 * 上传图片的接口
+	 * @param multipartFile 上传的文件
+	 * @return json串
+	 */
 	@RequestMapping("/upload")
 	@ResponseBody
 	public BaseResponse<String> upload(@RequestParam("file") MultipartFile multipartFile) {

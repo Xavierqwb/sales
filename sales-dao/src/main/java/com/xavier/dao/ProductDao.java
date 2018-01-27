@@ -26,8 +26,4 @@ public interface ProductDao {
 	Integer deleteProduct(int id);
 
 	Integer soldProduct(BuyModel buyModel);
-
-	List<ProductModel> notBuyProducts();
-
-	List<ProductModel> buyProducts();
 }

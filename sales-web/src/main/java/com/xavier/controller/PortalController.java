@@ -106,6 +106,14 @@ public class PortalController {
 		return "publishSubmit";
 	}
 
+	/**
+	 * 商品展示页面
+	 * @param id 被展示的商品
+	 * @param request HttpServletRequest，为了从中取出cookie
+	 * @param response HTTPServletResponse，为了让cookie过期
+	 * @param map model
+	 * @return 展示页面
+	 */
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public String showProduct(@RequestParam(value = "id") Integer id,
 	                          HttpServletRequest request,
@@ -139,6 +147,12 @@ public class PortalController {
 		return "show";
 	}
 
+	/**
+	 * 购物车页面
+	 * @param response HTTPServletResponse，为了塞cookie
+	 * @param session 会话session
+	 * @return 购物车页面
+	 */
 	@RequestMapping(value = "/settleAccount")
 	public String cart(HttpServletResponse response, HttpSession session) {
 		if (!verifyLogin(session)) {
@@ -157,6 +171,12 @@ public class PortalController {
 		return "settleAccount";
 	}
 
+	/**
+	 * 财务页面
+	 * @param session 会话session
+	 * @param map model
+	 * @return 财务页面
+	 */
 	@RequestMapping("/account")
 	public String account(HttpSession session, ModelMap map) {
 		if (!verifyLogin(session)) {
@@ -170,6 +190,13 @@ public class PortalController {
 		return "account";
 	}
 
+	/**
+	 *
+	 * @param id 被编辑商品的ID
+	 * @param session 会话session
+	 * @param map model
+	 * @return 编辑页面
+	 */
 	@RequestMapping("/edit")
 	public String edit(@RequestParam("id") int id, HttpSession session, ModelMap map) {
 		if (!verifyLogin(session)) {
@@ -180,6 +207,14 @@ public class PortalController {
 		return "edit";
 	}
 
+	/**
+	 * 编辑成功页面
+	 * @param id 被编辑商品的ID
+	 * @param editProductForm 商品编辑后的内容表单
+	 * @param session 会话session
+	 * @param map model
+	 * @return 编辑成功的页面
+	 */
 	@RequestMapping("/editSubmit")
 	public String editSubmit(@RequestParam("id") int id, @RequestBody String editProductForm,
 	                         HttpSession session, ModelMap map) {
@@ -193,11 +228,20 @@ public class PortalController {
 		return "editSubmit";
 	}
 
+	/**
+	 * 错误页面
+	 * @return 错误页面
+	 */
 	@RequestMapping("/error")
 	public String error() {
 		return "error";
 	}
 
+	/**
+	 * 登录验证页面
+	 * @param session 回话session
+	 * @return true：已登录  false：游客
+	 */
 	private boolean verifyLogin(HttpSession session) {
 		UserModel userModel = (UserModel) session.getAttribute("userModel");
 		return userModel != null;

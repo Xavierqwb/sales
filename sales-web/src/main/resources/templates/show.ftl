@@ -14,7 +14,7 @@
             <h2>${product.title}</h2>
             <p class="summary">${product.summary}</p>
             <div class="price">
-                <span class="v-unit">¥</span><span class="v-value">${product.originPrice/100}</span>
+                <span class="v-unit">¥</span><span class="v-value">${(product.originPrice/100)?c}</span>
             </div>
             <div class="num">购买数量：<span id="plusNum" class="lessNum"><a>-</a></span><span
                     class="totalNum" id="allNum">1</span><span id="addNum" class="moreNum"><a>+</a></span>
@@ -26,7 +26,7 @@
                 <#else>
                     <#if product.bought>
                         <span class="u-btn u-btn-primary z-dis">已购买</span>
-                        <span class="buyprice">当时购买价格：¥${product.price/100}</span>
+                        <span class="buyprice">当时购买价格：¥${(product.price/100)?c}</span>
                     <#else>
                         <button class="u-btn u-btn-primary" id="add" data-id="${product.id}"
                                 data-title="${product.title}" data-price="${product.originPrice?c}">

@@ -45,7 +45,7 @@
                                 </div>
                                 <h3>${product.title}</h3>
                                 <div class="price"><span class="v-unit">¥</span>
-                                    <span class="v-value">${product.price/100}</span>
+                                    <span class="v-value">${(product.price/100)?c}</span>
                                 </div>
                             </a>
                             <#if product.soldNum=0>
@@ -63,7 +63,7 @@
                                 </div>
                                 <h3>${product.title}</h3>
                                 <div class="price"><span class="v-unit">¥</span>
-                                    <span class="v-value">${product.price/100}</span>
+                                    <span class="v-value">${(product.price/100)?c}</span>
                                 </div>
                             </a>
                             <#if (product.soldNum > 0)>
@@ -78,7 +78,7 @@
                                 </div>
                                 <h3>${product.title}</h3>
                                 <div class="price"><span class="v-unit">¥</span>
-                                    <span class="v-value">${product.price/100}</span>
+                                    <span class="v-value">${(product.price/100)?c}</span>
                                 </div>
                             </a>
                         </li>
@@ -91,7 +91,7 @@
                             </div>
                             <h3>${product.title}</h3>
                             <div class="price"><span class="v-unit">¥</span>
-                                <span class="v-value">${product.price/100}</span>
+                                <span class="v-value">${(product.price/100)?c}</span>
                             </div>
                         </a>
                     </li>

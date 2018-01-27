@@ -43,7 +43,7 @@
                         </td>
                         <td><span class="v-time">${finance.purchaseTime}</span></td>
                         <td><span class="v-num">${finance.num}</span></td>
-                        <td><span class="v-unit">¥</span><span class="value">${finance.price/100}</span></td>
+                        <td><span class="v-unit">¥</span><span class="value">${(finance.price/100)?c}</span></td>
                     </tr>
                     </#items>
                 </#list>
@@ -54,7 +54,7 @@
                 <td colspan="4">
                     <div class="total">总计：</div>
                 </td>
-                <td><span class="v-unit">¥</span><span class="value">${totalPrice/100}</span></td>
+                <td><span class="v-unit">¥</span><span class="value">${(totalPrice/100)?c}</span></td>
             </tr>
             </tfoot>
         </#if>

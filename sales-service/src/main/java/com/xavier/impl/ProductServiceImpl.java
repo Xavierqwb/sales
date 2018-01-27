@@ -69,14 +69,4 @@ public class ProductServiceImpl implements ProductService{
 			}
 		}
 	}
-
-	@Override
-	public List<ProductModel> notBoughtProductList() {
-		return productDao.notBuyProducts();
-	}
-
-	@Override
-	public List<ProductModel> boughtProductList() {
-		return productDao.buyProducts();
-	}
 }

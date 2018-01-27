@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>java</title>
+    <title>发布成功</title>
     <link rel="stylesheet" href="/css/style.css"/>
 </head><body>
 <#include "menu.ftl">

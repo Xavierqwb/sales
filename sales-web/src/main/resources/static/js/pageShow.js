@@ -38,17 +38,8 @@ $('add').onclick = function (e) {
     var productDetail = {'id': id, 'price': price, 'title': title, 'num': num};
     var name = 'productsAddToCart';
     var productList = [];
-    // var productList = util.getCookie(name);
-    // if(productList == "" || productList == null){
     productList.push(productDetail);
     util.setCookie(name, encodeURIComponent(JSON.stringify(productList)));
-    // }else if(util.findOne(productList,id)){
-    //     util.modifyTwo(productList,id,num);
-    //     util.setCookie(name,productList);
-    // }else{
-    //     productList.push(productDetail);
-    //     util.setCookie(name,productList);
-    // }
     console.log(document.cookie);
 //		util.deleteCookie(name);
     e == window.event || e;
