@@ -955,20 +955,20 @@ select.u-ipt {
     height: 0;
     width: 0;
     border-style: solid;
-    border-width: 22px;
+    border-width: 25px;
     border-color: #aaa transparent transparent #aaa;
     border-top-left-radius: 2px;
 }
 
 .n-plist .had b {
     position: absolute;
-    top: -12px;
-    left: -25px;
-    width: 40px;
+    top: auto;
+    left: -28px;
+    width: 20px;
     text-align: center;
     white-space: nowrap;
-    line-height: 14px;
-    font-size: 12px;
+    line-height: normal;
+    font-size: 5px;
     transform: rotate(-45deg);
     color: #eee;
 }
