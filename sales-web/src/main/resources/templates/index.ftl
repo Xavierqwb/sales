@@ -38,7 +38,7 @@
             <#items as product>
                 <#if userModel??>
                     <#if userModel.type=0>
-                        <li id="p-${product_index+1}">
+                        <li id="p-${product.id}">
                             <a href="/sales/show?id=#{product.id}" class="link">
                                 <div class="img"><img src="${product.image}"
                                                       alt="${product.title}">
@@ -50,13 +50,13 @@
                             </a>
                             <#if product.soldNum=0>
                                 <span class="u-btn u-btn-normal u-btn-xs del"
-                                      data-del="${product_index+1}">删除</span>
+                                      data-del="${product.id}">删除</span>
                             <#else>
                                 <span class="had"><b>已售出${product.soldNum}件</b></span>
                             </#if>
                         </li>
                     <#elseif notBuyFlag=0>
-                        <li id="p-${product_index+1}">
+                        <li id="p-${product.id}">
                             <a href="/sales/show?id=#{product.id}" class="link">
                                 <div class="img"><img src="${product.image}"
                                                       alt="${product.title}">
@@ -71,7 +71,7 @@
                             </#if>
                         </li>
                     <#elseif product.soldNum=0>
-                        <li id="p-${product_index+1}">
+                        <li id="p-${product.id}">
                             <a href="/sales/show?id=#{product.id}" class="link">
                                 <div class="img"><img src="${product.image}"
                                                       alt="${product.title}">
@@ -84,7 +84,7 @@
                         </li>
                     </#if>
                 <#else>
-                    <li id="p-${product_index+1}">
+                    <li id="p-${product.id}">
                         <a href="/sales/show?id=#{product.id}" class="link">
                             <div class="img"><img src="${product.image}"
                                                   alt="${product.title}">

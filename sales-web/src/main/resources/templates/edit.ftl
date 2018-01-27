@@ -57,7 +57,7 @@
             </div>
             <div class="fmitem fmitem-nolab fmitem-btn">
                 <div class="fmipt">
-                    <button type="submit" class="u-btn u-btn-primary u-btn-lg">保 存</button>
+                    <button type="submit" class="u-btn u-btn-primary u-btn-lg" id="publish">保 存</button>
                 </div>
             </div>
         </form>

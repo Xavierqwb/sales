@@ -12,11 +12,8 @@ public class FormToMapUtil {
 		Map<String, String> result = new HashMap<>();
 		String[] props = form.split("&");
 		for (String prop : props) {
-			String[] entry = prop.split("=");
-			if (entry.length < 2) {
-				continue;
-			}
-			result.put(entry[0], entry[1]);
+			int index = prop.indexOf('=');
+			result.put(prop.substring(0, index), prop.substring(index + 1));
 		}
 		return result;
 	}
