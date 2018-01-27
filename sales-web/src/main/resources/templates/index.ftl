@@ -34,9 +34,56 @@
     </div>
     <div class="n-plist">
         <ul class="f-cb" id="plist">
-        <#if notBuyFlag=0 || !userModel??>
-            <#list boughtProducts>
-                <#items as product>
+        <#list allProducts>
+            <#items as product>
+                <#if userModel??>
+                    <#if userModel.type=0>
+                        <li id="p-${product_index+1}">
+                            <a href="/sales/show?id=#{product.id}" class="link">
+                                <div class="img"><img src="${product.image}"
+                                                      alt="${product.title}">
+                                </div>
+                                <h3>${product.title}</h3>
+                                <div class="price"><span class="v-unit">¥</span>
+                                    <span class="v-value">${product.price/100}</span>
+                                </div>
+                            </a>
+                            <#if product.soldNum=0>
+                                <span class="u-btn u-btn-normal u-btn-xs del"
+                                      data-del="${product_index+1}">删除</span>
+                            <#else>
+                                <span class="had"><b>已售出${product.soldNum}件</b></span>
+                            </#if>
+                        </li>
+                    <#elseif notBuyFlag=0>
+                        <li id="p-${product_index+1}">
+                            <a href="/sales/show?id=#{product.id}" class="link">
+                                <div class="img"><img src="${product.image}"
+                                                      alt="${product.title}">
+                                </div>
+                                <h3>${product.title}</h3>
+                                <div class="price"><span class="v-unit">¥</span>
+                                    <span class="v-value">${product.price/100}</span>
+                                </div>
+                            </a>
+                            <#if (product.soldNum > 0)>
+                                <span class="had"><b>已购买</b></span>
+                            </#if>
+                        </li>
+                    <#elseif product.soldNum=0>
+                        <li id="p-${product_index+1}">
+                            <a href="/sales/show?id=#{product.id}" class="link">
+                                <div class="img"><img src="${product.image}"
+                                                      alt="${product.title}">
+                                </div>
+                                <h3>${product.title}</h3>
+                                <div class="price"><span class="v-unit">¥</span>
+                                    <span class="v-value">${product.price/100}</span>
+                                </div>
+                            </a>
+                        </li>
+                    </#if>
+                <#else>
                     <li id="p-${product_index+1}">
                         <a href="/sales/show?id=#{product.id}" class="link">
                             <div class="img"><img src="${product.image}"
@@ -46,35 +93,9 @@
                             <div class="price"><span class="v-unit">¥</span>
                                 <span class="v-value">${product.price/100}</span>
                             </div>
-                            <#if userModel??>
-                                <#if userModel.type=1>
-                                    <span class="had"><b>已购买</b></span>
-                                <#else>
-                                    <span class="had"><b>已售出</b></span>
-                                </#if>
-                            </#if>
                         </a>
                     </li>
-                </#items>
-            </#list>
-        </#if>
-        <#list notBoughtProducts>
-            <#items as product>
-                <li id="p-${product_index+1}">
-                    <a href="/sales/show?id=#{product.id}" class="link">
-                        <div class="img"><img src="${product.image}"
-                                              alt="${product.title}">
-                        </div>
-                        <h3>${product.title}</h3>
-                        <div class="price"><span class="v-unit">¥</span>
-                            <span class="v-value">${product.price/100}</span>
-                        </div>
-                    </a>
-                    <#if userModel?? && userModel.type=0>
-                        <span class="u-btn u-btn-normal u-btn-xs del"
-                              data-del="${product.id}">删除</span>
-                    </#if>
-                </li>
+                </#if>
             </#items>
         </#list>
         </ul>

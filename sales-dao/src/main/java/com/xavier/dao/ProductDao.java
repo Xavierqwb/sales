@@ -1,6 +1,7 @@
 package com.xavier.dao;
 
 import com.xavier.annotation.MybatisDao;
+import com.xavier.model.BuyModel;
 import com.xavier.model.ProductModel;
 
 import org.apache.ibatis.annotations.Param;
@@ -23,6 +24,8 @@ public interface ProductDao {
 	Integer updateProduct(@Param("id") int id, @Param("product") ProductModel productModel);
 
 	Integer deleteProduct(int id);
+
+	Integer soldProduct(BuyModel buyModel);
 
 	List<ProductModel> notBuyProducts();
 

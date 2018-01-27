@@ -38,7 +38,7 @@
                 <#list finances>
                     <#items as finance>
                     <tr>
-                        <td><a href="/show?id=${finance.productId}"><img src="abc" alt=""></a></td>
+                        <td><a href="/show?id=${finance.productId}"><img src="${finance.image}" alt=""></a></td>
                         <td><h4><a href="/show?id=${finance.productId}">${finance.title}</a></h4>
                         </td>
                         <td><span class="v-time">${finance.purchaseTime}</span></td>

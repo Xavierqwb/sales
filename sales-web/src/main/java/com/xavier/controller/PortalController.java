@@ -58,12 +58,8 @@ public class PortalController {
 		@RequestParam(value = "type", required = false, defaultValue = "0") int type,
 		ModelMap map) {
 		map.addAttribute("notBuyFlag", type);
-		List<ProductModel> notBoughtProductModelList;
-		List<ProductModel> boughtProductModelList;
-		notBoughtProductModelList = productService.notBoughtProductList();
-		boughtProductModelList = productService.boughtProductList();
-		map.addAttribute("notBoughtProducts", notBoughtProductModelList);
-		map.addAttribute("boughtProducts", boughtProductModelList);
+		List<ProductModel> allProducts = productService.listProduct();
+		map.addAttribute("allProducts", allProducts);
 		return "index";
 	}
 

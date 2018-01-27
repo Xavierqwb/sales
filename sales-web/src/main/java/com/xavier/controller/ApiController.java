@@ -101,6 +101,7 @@ public class ApiController {
 		buyModelList = buyModelList.stream()
 			.filter(buyModel -> buyModel.getNumber() > 0).collect(Collectors.toList());
 		cartService.buyProducts(buyModelList);
+		productService.soldProducts(buyModelList);
 		baseResponse.setCode(200);
 		baseResponse.setSuccess(true);
 		return baseResponse;

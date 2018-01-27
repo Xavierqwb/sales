@@ -29,6 +29,8 @@ public class ProductModel {
 	// 单位：分
 	private Long price;
 
+	private int soldNum;
+
 	public static ProductModel parseProduct(String input) {
 		ProductModel productModel = new ProductModel();
 		Map<String, String> propsMap = null;

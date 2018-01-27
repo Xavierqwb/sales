@@ -8,6 +8,7 @@
         <result column="image" property="image"/>
         <result column="detail" property="detail"/>
         <result column="price" property="price"/>
+        <result column="sold_num" property="soldNum"/>
     </resultMap>
 
     <sql id="product_table">
@@ -49,6 +50,12 @@
         SET deleted=0
         WHERE id=#{id}
         LIMIT 1
+    </update>
+
+    <update id="soldProduct" parameterType="com.xavier.model.BuyModel">
+        UPDATE <include refid="product_table"/>
+        SET `sold_num`=`sold_num`+#{number}
+        WHERE `id`=#{id}
     </update>
 
     <select id="notBuyProducts" resultMap="productModelMap">

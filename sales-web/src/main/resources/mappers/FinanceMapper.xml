@@ -4,6 +4,7 @@
     <resultMap id="financeModelMap" type="com.xavier.model.FinanceModel">
         <result column="id" property="id"/>
         <result column="title" property="title"/>
+        <result column="image" property="image"/>
         <result column="price" property="price"/>
         <result column="user_id" property="userId"/>
         <result column="product_id" property="productId"/>
@@ -19,7 +20,7 @@
         `product`
     </sql>
 
-    <insert id="insertRecords" parameterType="com.xavier.model.BuyModel" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertRecords" parameterType="com.xavier.model.BuyModel" useGeneratedKeys="true">
         INSERT INTO <include refid="finance_table"/>
         (`user_id`, `product_id`, `num`, `price`)
         VALUES
@@ -29,7 +30,7 @@
     </insert>
 
     <select id="listFinances" resultMap="financeModelMap">
-        SELECT f.id as id, p.`title` as `title`, f.price as price, f.`product_id` as productId,
+        SELECT f.id as id, p.`title` as `title`, p.`image` as image, f.price as price, f.`product_id` as productId,
         f.`num` as `num`, f.`purchase_time` as purchase_time
         FROM <include refid="finance_table"/> f
         LEFT JOIN <include refid="product_table"/> p

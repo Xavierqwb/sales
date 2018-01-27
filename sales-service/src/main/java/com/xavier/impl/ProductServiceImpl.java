@@ -1,11 +1,9 @@
 package com.xavier.impl;
 
-import com.xavier.dao.FinanceDao;
 import com.xavier.dao.ProductDao;
-import com.xavier.model.FinanceModel;
+import com.xavier.model.BuyModel;
 import com.xavier.model.ProductModel;
 import com.xavier.service.ProductService;
-import com.xavier.utils.DataTransferUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +59,15 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public List<ProductModel> listProduct() {
 		return productDao.listProducts();
+	}
+
+	@Override
+	public void soldProducts(List<BuyModel> buyModelList) {
+		if (buyModelList.size() > 0) {
+			for (BuyModel buyModel : buyModelList) {
+				productDao.soldProduct(buyModel);
+			}
+		}
 	}
 
 	@Override

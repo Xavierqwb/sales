@@ -1,5 +1,6 @@
 package com.xavier.service;
 
+import com.xavier.model.BuyModel;
 import com.xavier.model.ProductModel;
 
 import org.springframework.ui.ModelMap;
@@ -46,6 +47,12 @@ public interface ProductService {
 	 * @return 所有商品的列表
 	 */
 	List<ProductModel> listProduct();
+
+	/**
+	 * 记录下已经售出的商品
+	 * @param buyModelList 售出的商品列表
+	 */
+	void soldProducts(List<BuyModel> buyModelList);
 
 	/**
 	 * 查询未购买的商品列表

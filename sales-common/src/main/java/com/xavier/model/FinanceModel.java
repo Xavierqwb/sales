@@ -14,6 +14,8 @@ public class FinanceModel {
 
 	private String title;
 
+	private String image;
+
 	private Long price;
 
 	private int userId;
