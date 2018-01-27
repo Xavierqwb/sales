@@ -1,5 +1,5 @@
 # 网易作业——内容销售系统
-Homework of NetEase
+[Homework of NetEase](https://github.com/Xavierqwb/sales)
 
 具体需求见：[Requirement](Requirement.md)
 
@@ -19,4 +19,4 @@ Homework of NetEase
 
 > 在命令行中使用mvn spring-boot:run指令启动，该启动方式运行后不存在上个启动方法中存在的问题
 
-应用启动后，在浏览器中访问[localhost:8080/sales](localhost:8080/sales)，请使用Chrome、Safari等webkit内核的浏览器！
+应用启动后，在浏览器中访问[127.0.0.1:8080/sales](127.0.0.1:8080/sales)，请使用Chrome、Safari等webkit内核的浏览器！

@@ -3,6 +3,7 @@ package com.xavier.controller;
 import com.xavier.model.CartRecordModel;
 import com.xavier.model.FinanceModel;
 import com.xavier.model.ProductModel;
+import com.xavier.model.UserModel;
 import com.xavier.service.CartService;
 import com.xavier.service.FinanceService;
 import com.xavier.service.ProductService;
@@ -79,7 +80,10 @@ public class PortalController {
 	 * @return 返回发布页面
 	 */
 	@RequestMapping("/publish")
-	public String publish() {
+	public String publish(HttpSession session) {
+		if (!verifyLogin(session)) {
+			return "error";
+		}
 		return "publish";
 	}
 
@@ -92,7 +96,11 @@ public class PortalController {
 	 */
 	@RequestMapping(value = "/publishSubmit", method = RequestMethod.POST)
 	public String publishSubmit(@RequestBody String productForm,
+	                            HttpSession session,
 	                            ModelMap map) {
+		if (!verifyLogin(session)) {
+			return "error";
+		}
 		logger.info(productForm);
 		productService.publishProduct(productForm, map);
 		return "publishSubmit";
@@ -132,7 +140,10 @@ public class PortalController {
 	}
 
 	@RequestMapping(value = "/settleAccount")
-	public String cart(HttpServletResponse response) {
+	public String cart(HttpServletResponse response, HttpSession session) {
+		if (!verifyLogin(session)) {
+			return "error";
+		}
 		List<CartRecordModel> cartRecordModels = cartService.listProductsInCart();
 		String json = JsonUtils.toJson(cartRecordModels);
 		Cookie cookie = null;
@@ -147,7 +158,10 @@ public class PortalController {
 	}
 
 	@RequestMapping("/account")
-	public String account(ModelMap map) {
+	public String account(HttpSession session, ModelMap map) {
+		if (!verifyLogin(session)) {
+			return "error";
+		}
 		List<FinanceModel> financeModels = financeService.listFinances();
 		Long totalPrice = financeModels.stream().mapToLong(f -> f.getNum() * f.getPrice()).sum();
 		logger.info("{}", financeModels);
@@ -157,7 +171,10 @@ public class PortalController {
 	}
 
 	@RequestMapping("/edit")
-	public String edit(@RequestParam("id") int id, ModelMap map) {
+	public String edit(@RequestParam("id") int id, HttpSession session, ModelMap map) {
+		if (!verifyLogin(session)) {
+			return "error";
+		}
 		ProductModel productModel = productService.getProduct(id);
 		map.addAttribute("product", productModel);
 		return "edit";
@@ -165,7 +182,10 @@ public class PortalController {
 
 	@RequestMapping("/editSubmit")
 	public String editSubmit(@RequestParam("id") int id, @RequestBody String editProductForm,
-	                         ModelMap map) {
+	                         HttpSession session, ModelMap map) {
+		if (!verifyLogin(session)) {
+			return "error";
+		}
 		ProductModel productModel = ProductModel.parseProduct(editProductForm);
 		productService.editProduct(id, productModel);
 		logger.info("edit product: {}", productModel);
@@ -173,24 +193,13 @@ public class PortalController {
 		return "editSubmit";
 	}
 
-	/**
-	 * 验证登录，在FreeMarker中不需要，FreeMarker会自动将session中的属性加入到model中，如果再在model中加入重复属性会出bug
-	 * 使用ThymeLeaf的话就需要验证登录
-	 *
-	 * @param session HTTPSession，会话对象，从中取出isLogin判断登录状态
-	 * @param map     ModelMap对象，存入属性传给前端模板
-	 */
-	private void verifyLogin(HttpSession session, ModelMap map) {
-		Boolean isLogin = (Boolean) session.getAttribute("isLogin");
-		if (isLogin != null && isLogin) {
-			if (!map.containsAttribute("isLogin")) {
-				map.addAttribute("isLogin", true);
-			}
-			if (!map.containsAttribute("name")) {
-				map.addAttribute("name", session.getAttribute("title"));
-			} else {
-				map.replace("name", session.getAttribute("title"));
-			}
-		}
+	@RequestMapping("/error")
+	public String error() {
+		return "error";
+	}
+
+	private boolean verifyLogin(HttpSession session) {
+		UserModel userModel = (UserModel) session.getAttribute("userModel");
+		return userModel != null;
 	}
 }
