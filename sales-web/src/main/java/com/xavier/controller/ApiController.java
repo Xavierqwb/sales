@@ -2,6 +2,7 @@ package com.xavier.controller;
 
 import com.xavier.common.BaseResponse;
 import com.xavier.model.BuyModel;
+import com.xavier.model.CartRecordModel;
 import com.xavier.service.CartService;
 import com.xavier.service.LoginService;
 import com.xavier.service.ProductService;
@@ -151,6 +152,17 @@ public class ApiController {
 			baseResponse.setCode(200);
 			baseResponse.setData(RETURN_IMAGE_PATH_PREFIX + fileName);
 		}
+		return baseResponse;
+	}
+
+	@RequestMapping("/addToCart")
+	@ResponseBody
+	public BaseResponse addToCart(@RequestBody CartRecordModel cartRecordModel) {
+		BaseResponse baseResponse = new BaseResponse();
+		logger.info("Add {} to cart.", cartRecordModel);
+		cartService.addProductToCart(cartRecordModel);
+		baseResponse.setCode(200);
+		baseResponse.setSuccess(true);
 		return baseResponse;
 	}
 }

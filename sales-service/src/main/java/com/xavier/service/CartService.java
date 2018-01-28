@@ -29,4 +29,11 @@ public interface CartService {
 	 * @return 加入的数量
 	 */
 	int addProductsToCart(List<CartRecordModel> cartRecordModels);
+
+	/**
+	 * 将一件商品加入购物车
+	 * @param cartRecordModel 商品信息
+	 * @return 1
+	 */
+	int addProductToCart(CartRecordModel cartRecordModel);
 }

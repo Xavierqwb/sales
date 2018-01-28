@@ -48,4 +48,9 @@ public class CartServiceImpl implements CartService{
 		logger.info("{} records have been add to cart.", rows);
 		return rows;
 	}
+
+	@Override
+	public int addProductToCart(CartRecordModel cartRecordModel) {
+		return cartDao.insertProductRecord(cartRecordModel);
+	}
 }

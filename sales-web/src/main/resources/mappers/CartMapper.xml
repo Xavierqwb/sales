@@ -16,13 +16,22 @@
         `product`
     </sql>
 
-    <insert id="insertProductRecords" parameterType="com.xavier.model.CartRecordModel" useGeneratedKeys="true">
+    <insert id="insertProductRecords" useGeneratedKeys="true">
         INSERT INTO <include refid="cart_table"/>
         (`user_id`, `product_id`, `num`)
         VALUES
         <foreach collection="list" item="item" separator=",">
             (2, #{item.id}, #{item.num})
         </foreach>
+        ON DUPLICATE KEY
+        UPDATE `num` = `num` + VALUES(num), `deleted`=1
+    </insert>
+
+    <insert id="insertProductRecord" parameterType="com.xavier.model.CartRecordModel" useGeneratedKeys="true">
+        INSERT INTO <include refid="cart_table"/>
+        (`user_id`, `product_id`, `num`)
+        VALUES
+        (2, #{id}, #{num})
         ON DUPLICATE KEY
         UPDATE `num` = `num` + VALUES(num), `deleted`=1
     </insert>
