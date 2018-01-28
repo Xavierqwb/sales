@@ -36,7 +36,8 @@ public class ProductServiceImpl implements ProductService{
 		ProductModel productModel = ProductModel.parseProduct(productFrom);
 		int rows = productDao.insertProduct(productModel);
 		map.addAttribute("id", productModel.getId());
-		logger.info("{} product has been published, id is {}", rows, productModel.getId());
+		logger.info("ProductServiceImpl.publishProduct: {} product has been published, id is {}",
+		            rows, productModel.getId());
 		return productModel.getId();
 	}
 

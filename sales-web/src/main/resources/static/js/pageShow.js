@@ -36,13 +36,6 @@ $('add').onclick = function (e) {
     var price = ele && ele.dataset.price;
     var num = $('allNum').innerHTML;
     var productDetail = {'id': id, 'price': price, 'title': title, 'num': num};
-    // var name = 'productsAddToCart';
-//     var productList = [];
-//     productList.push(productDetail);
-//     util.setCookie(name, encodeURIComponent(JSON.stringify(productList)));
-//     console.log(document.cookie);
-// //		util.deleteCookie(name);
-//     e == window.event || e;
     layer.reset({
                     content: '确认加入购物车吗？',
                     onconfirm: function () {
@@ -50,27 +43,27 @@ $('add').onclick = function (e) {
                         loading.show();
                         var xhr = new XMLHttpRequest();
                         var data = JSON.stringify(productDetail);
-                        xhr.onreadystatechange = function(){
-                            if(xhr.readyState === 4){
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4) {
                                 var status = xhr.status;
-                                if(status >= 200 && status < 300 || status === 304){
+                                if (status >= 200 && status < 300 || status === 304) {
                                     var json = JSON.parse(xhr.responseText);
-                                    if(json && json.code === 200){
-                                        loading.result('添加到购物车成功',function(){location.href = './settleAccount';});
+                                    if (json && json.code === 200) {
+                                        loading.result('添加到购物车成功', function () {
+                                            location.href = './settleAccount';
+                                        });
                                         util.deleteCookie(name);
-                                    }else{
+                                    } else {
                                         alert(json.message);
                                     }
-                                }else{
-                                    loading.result(message||'添加到购物车失败');
+                                } else {
+                                    loading.result(message || '添加到购物车失败');
                                 }
                             }
                         };
-                        xhr.open('post','/sales/api/addToCart');
-                        xhr.setRequestHeader('Content-Type','application/json');
+                        xhr.open('post', '/sales/api/addToCart');
+                        xhr.setRequestHeader('Content-Type', 'application/json');
                         xhr.send(data);
-                        // loading.result('添加购物车成功');
-                        // location.reload(true);
                     }.bind(this)
                 }).show();
     return;

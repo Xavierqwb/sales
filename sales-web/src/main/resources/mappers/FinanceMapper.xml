@@ -30,7 +30,7 @@
     </insert>
 
     <select id="listFinances" resultMap="financeModelMap">
-        SELECT f.id as id, p.`title` as `title`, p.`image` as image, f.price as price, f.`product_id` as productId,
+        SELECT f.id as id, p.`title` as `title`, p.`image` as image, f.price as price, f.`product_id` as product_id,
         f.`num` as `num`, f.`purchase_time` as purchase_time
         FROM <include refid="finance_table"/> f
         LEFT JOIN <include refid="product_table"/> p

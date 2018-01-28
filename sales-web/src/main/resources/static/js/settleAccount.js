@@ -6,11 +6,32 @@
     if(!settleAccount){
         return;
     }
+
+    var productList = [];
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            var status = xhr.status;
+            if (status >= 200 && status < 300 || status === 304) {
+                var json = JSON.parse(xhr.responseText);
+                if (json && json.code === 200) {
+                    productList = json.data;
+                } else {
+                    alert(json.message);
+                }
+            } else {
+                loading.result(message || '获取购物车失败');
+            }
+        }
+    };
+    xhr.open('GET', '/sales/api/getCart', false);
+    xhr.send(null);
     var name = 'products';
     var products = util.getCookie(name);
     var $ = function(id){
         return document.getElementById(id);
-    }
+    };
 
     var str = "<tr>" +
               "<th>" + '内容名称'  + "</th>"+
@@ -18,16 +39,16 @@
               "<th>" + '价格' + "</th>" +
               "</tr>";
 
-    for(var i = 0; i < products.length; i++){
+    for(var i = 0; i < productList.length; i++){
         str = str +
               "<tr>" +
-              "<td>" + products[i].title  + "</td>"+
+              "<td>" + productList[i].title  + "</td>"+
               "<td>" +
               "<span class=\"lessNum\">"+ "-" + "</span>" +
-              "<span class=\"totalNum\" id=\"allNum\">" + products[i].num + "</span>" +
-              "<span id=\"thisId\">" + products[i].id + "</span>" +
+              "<span class=\"totalNum\" id=\"allNum\">" + productList[i].num + "</span>" +
+              "<span id=\"thisId\">" + productList[i].id + "</span>" +
               "<span class=\"moreNum\">"+ "+" + "</span>" + "</td>" +
-              "<td>" + products[i].price/100 + "</td>" +
+              "<td>" + productList[i].price/100 + "</td>" +
               "</tr>";
     }
 
@@ -42,7 +63,7 @@
                 var id = target.parentElement.children[2].textContent;
                 num ++;
                 target.parentElement.children[1].textContent = num;
-                util.modifyOne(products,id,num);
+                util.modifyOne(productList,id,num);
             }else if(target.nodeName == "SPAN" && target.className == "lessNum"){
                 var num = target.parentElement.children[1].textContent;
                 var id = target.parentElement.children[2].textContent;
@@ -51,7 +72,7 @@
                     alert("该商品数量为0");
                 }else{
                     target.parentElement.children[1].textContent = num;
-                    util.modifyOne(products,id,num);
+                    util.modifyOne(productList,id,num);
                 }
             }
             return false;
@@ -61,7 +82,7 @@
     var loading = new Loading();
     var layer = new Layer();
     $('Account').onclick = function(e){
-        var newProducts = products.map(function(arr){
+        var newProducts = productList.map(function(arr){
             return {'id':arr.id,'number':arr.num,'price':arr.price};
         });
         console.log(newProducts);

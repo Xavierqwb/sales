@@ -165,4 +165,15 @@ public class ApiController {
 		baseResponse.setSuccess(true);
 		return baseResponse;
 	}
+
+	@RequestMapping("/getCart")
+	@ResponseBody
+	public BaseResponse<List> getCart() {
+		BaseResponse<List> baseResponse = new BaseResponse<>();
+		List<CartRecordModel> cartRecordModels = cartService.listProductsInCart();
+		baseResponse.setSuccess(true);
+		baseResponse.setCode(200);
+		baseResponse.setData(cartRecordModels);
+		return baseResponse;
+	}
 }

@@ -1,6 +1,5 @@
 package com.xavier.controller;
 
-import com.xavier.model.CartRecordModel;
 import com.xavier.model.FinanceModel;
 import com.xavier.model.ProductModel;
 import com.xavier.model.UserModel;
@@ -8,7 +7,6 @@ import com.xavier.service.CartService;
 import com.xavier.service.FinanceService;
 import com.xavier.service.ProductService;
 import com.xavier.utils.DataTransferUtil;
-import com.xavier.utils.JsonUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,15 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -101,7 +93,6 @@ public class PortalController {
 		if (!verifyLogin(session)) {
 			return "error";
 		}
-		logger.info(productForm);
 		productService.publishProduct(productForm, map);
 		return "publishSubmit";
 	}
@@ -109,38 +100,12 @@ public class PortalController {
 	/**
 	 * 商品展示页面
 	 * @param id 被展示的商品
-	 * @param request HttpServletRequest，为了从中取出cookie
-	 * @param response HTTPServletResponse，为了让cookie过期
 	 * @param map model
 	 * @return 展示页面
 	 */
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public String showProduct(@RequestParam(value = "id") Integer id,
-	                          HttpServletRequest request,
-	                          HttpServletResponse response,
 	                          ModelMap map) {
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("productsAddToCart")) {
-					String value = cookie.getValue();
-					try {
-						value = URLDecoder.decode(value, "utf-8");
-						logger.info("{}", value);
-					} catch (UnsupportedEncodingException e) {
-						logger.info("{}", e);
-						// ignore
-					}
-					List<CartRecordModel> cartRecordModelList =
-						JsonUtils.readList(value, CartRecordModel.class);
-					logger.info("Add records to cart {}.", cartRecordModelList);
-					cartService.addProductsToCart(cartRecordModelList);
-					cookie.setMaxAge(0);
-					response.addCookie(cookie);
-				}
-			}
-		}
-
 		ProductModel productModel = productService.getProduct(id);
 		FinanceModel financeModel = financeService.getFinanceModel(id);
 		map.addAttribute("product", DataTransferUtil.toProductShowDTO(productModel, financeModel));
@@ -149,25 +114,14 @@ public class PortalController {
 
 	/**
 	 * 购物车页面
-	 * @param response HTTPServletResponse，为了塞cookie
 	 * @param session 会话session
 	 * @return 购物车页面
 	 */
 	@RequestMapping(value = "/settleAccount")
-	public String cart(HttpServletResponse response, HttpSession session) {
+	public String cart(HttpSession session) {
 		if (!verifyLogin(session)) {
 			return "error";
 		}
-		List<CartRecordModel> cartRecordModels = cartService.listProductsInCart();
-		String json = JsonUtils.toJson(cartRecordModels);
-		Cookie cookie = null;
-		try {
-			cookie = new Cookie("products", URLEncoder.encode(json, "utf-8"));
-		} catch (UnsupportedEncodingException e) {
-			logger.info("{}", e);
-		}
-		logger.info("{}", json);
-		response.addCookie(cookie);
 		return "settleAccount";
 	}
 
@@ -184,7 +138,7 @@ public class PortalController {
 		}
 		List<FinanceModel> financeModels = financeService.listFinances();
 		Long totalPrice = financeModels.stream().mapToLong(f -> f.getNum() * f.getPrice()).sum();
-		logger.info("{}", financeModels);
+		logger.info("Buyer have bought these products: {}", financeModels);
 		map.addAttribute("finances", financeModels);
 		map.addAttribute("totalPrice", totalPrice);
 		return "account";
