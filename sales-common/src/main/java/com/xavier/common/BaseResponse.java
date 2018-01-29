@@ -27,6 +27,7 @@ public class BaseResponse<T> {
 	public static BaseResponse fail() {
 		BaseResponse baseResponse = new BaseResponse();
 		baseResponse.setSuccess(false);
+		baseResponse.setCode(0);
 		baseResponse.setMessage("Something Wrong");
 		return baseResponse;
 	}

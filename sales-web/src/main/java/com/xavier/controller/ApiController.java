@@ -1,5 +1,6 @@
 package com.xavier.controller;
 
+import com.xavier.annotation.RestfulController;
 import com.xavier.common.BaseResponse;
 import com.xavier.model.BuyModel;
 import com.xavier.model.CartRecordModel;
@@ -65,6 +66,7 @@ public class ApiController {
 	 */
 	@RequestMapping("/login")
 	@ResponseBody
+	@RestfulController
 	public BaseResponse login(@RequestParam(value = "userName") String name,
 	                          @RequestParam(value = "password") String password,
 	                          HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
@@ -93,12 +95,14 @@ public class ApiController {
 	 * @param request HttpServletRequest对象，用来提取Session
 	 */
 	@RequestMapping("/quit")
+	@RestfulController
 	public void quit(HttpServletRequest request) {
 		loginService.quit(request.getSession());
 	}
 
 	@RequestMapping("/buy")
 	@ResponseBody
+	@RestfulController
 	public BaseResponse buy(@RequestBody List<BuyModel> buyModelList) {
 		BaseResponse baseResponse = new BaseResponse();
 		buyModelList = buyModelList.stream()
@@ -117,6 +121,7 @@ public class ApiController {
 	 */
 	@RequestMapping("/delete")
 	@ResponseBody
+	@RestfulController
 	public BaseResponse deleteProduct(@RequestParam("id") int id) {
 		BaseResponse baseResponse = new BaseResponse();
 		baseResponse.setCode(0);
@@ -136,6 +141,7 @@ public class ApiController {
 	 */
 	@RequestMapping("/upload")
 	@ResponseBody
+	@RestfulController
 	public BaseResponse<String> upload(@RequestParam("file") MultipartFile multipartFile) {
 		BaseResponse<String> baseResponse = new BaseResponse<>();
 		baseResponse.setCode(0);
@@ -159,6 +165,7 @@ public class ApiController {
 
 	@RequestMapping("/addToCart")
 	@ResponseBody
+	@RestfulController
 	public BaseResponse addToCart(@RequestBody CartRecordModel cartRecordModel) {
 		BaseResponse baseResponse = new BaseResponse();
 		logger.info("Add {} to cart.", cartRecordModel);
@@ -170,6 +177,7 @@ public class ApiController {
 
 	@RequestMapping("/getCart")
 	@ResponseBody
+	@RestfulController
 	public BaseResponse<List> getCart() {
 		BaseResponse<List> baseResponse = new BaseResponse<>();
 		List<CartRecordModel> cartRecordModels = cartService.listProductsInCart();

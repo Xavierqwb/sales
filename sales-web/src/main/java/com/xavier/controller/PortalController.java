@@ -1,5 +1,6 @@
 package com.xavier.controller;
 
+import com.xavier.annotation.WebController;
 import com.xavier.model.FinanceModel;
 import com.xavier.model.ProductModel;
 import com.xavier.model.UserModel;
@@ -48,6 +49,7 @@ public class PortalController {
 	 * @return 返回首页
 	 */
 	@RequestMapping("")
+	@WebController
 	public String homePage(
 		@RequestParam(value = "type", required = false, defaultValue = "0") int type,
 		ModelMap map) {
@@ -63,6 +65,7 @@ public class PortalController {
 	 * @return 返回登录页面
 	 */
 	@RequestMapping("/login")
+	@WebController
 	public String login() {
 		return "login";
 	}
@@ -73,6 +76,7 @@ public class PortalController {
 	 * @return 返回发布页面
 	 */
 	@RequestMapping("/publish")
+	@WebController
 	public String publish(HttpSession session) {
 		if (!verifyLogin(session)) {
 			return "error";
@@ -88,6 +92,7 @@ public class PortalController {
 	 * @return 发布成功页面
 	 */
 	@RequestMapping(value = "/publishSubmit", method = RequestMethod.POST)
+	@WebController
 	public String publishSubmit(@RequestBody String productForm,
 	                            HttpSession session,
 	                            ModelMap map) {
@@ -105,6 +110,7 @@ public class PortalController {
 	 * @return 展示页面
 	 */
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	@WebController
 	public String showProduct(@RequestParam(value = "id") Integer id,
 	                          ModelMap map) {
 		ProductModel productModel = productService.getProduct(id);
@@ -119,6 +125,7 @@ public class PortalController {
 	 * @return 购物车页面
 	 */
 	@RequestMapping(value = "/settleAccount")
+	@WebController
 	public String cart(HttpSession session) {
 		if (!verifyLogin(session)) {
 			return "error";
@@ -133,6 +140,7 @@ public class PortalController {
 	 * @return 财务页面
 	 */
 	@RequestMapping("/account")
+	@WebController
 	public String account(HttpSession session, ModelMap map) {
 		if (!verifyLogin(session)) {
 			return "error";
@@ -153,6 +161,7 @@ public class PortalController {
 	 * @return 编辑页面
 	 */
 	@RequestMapping("/edit")
+	@WebController
 	public String edit(@RequestParam("id") int id, HttpSession session, ModelMap map) {
 		if (!verifyLogin(session)) {
 			return "error";
@@ -172,6 +181,7 @@ public class PortalController {
 	 */
 	@RequestMapping("/editSubmit")
 	@Transactional
+	@WebController
 	public String editSubmit(@RequestParam("id") int id, @RequestBody String editProductForm,
 	                         HttpSession session, ModelMap map) {
 		if (!verifyLogin(session)) {

@@ -20,9 +20,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserModel verifyUser(String account, String password) {
-		UserModel userModel = userDao.verifyUser(account, password);
-		System.out.println(userModel);
-		return userModel;
+		return userDao.verifyUser(account, password);
 	}
 
 	public static void main(String[] args){
