@@ -147,7 +147,6 @@ public class PortalController {
 		}
 		List<FinanceModel> financeModels = financeService.listFinances();
 		Long totalPrice = financeModels.stream().mapToLong(f -> f.getNum() * f.getPrice()).sum();
-		logger.info("Buyer have bought these products: {}", financeModels);
 		map.addAttribute("finances", financeModels);
 		map.addAttribute("totalPrice", totalPrice);
 		return "account";
