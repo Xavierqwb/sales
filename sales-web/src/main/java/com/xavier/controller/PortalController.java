@@ -11,6 +11,7 @@ import com.xavier.utils.DataTransferUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -170,6 +171,7 @@ public class PortalController {
 	 * @return 编辑成功的页面
 	 */
 	@RequestMapping("/editSubmit")
+	@Transactional
 	public String editSubmit(@RequestParam("id") int id, @RequestBody String editProductForm,
 	                         HttpSession session, ModelMap map) {
 		if (!verifyLogin(session)) {
