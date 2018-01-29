@@ -31,8 +31,4 @@ public class BaseResponse<T> {
 		baseResponse.setMessage("Something Wrong");
 		return baseResponse;
 	}
-
-	public static void main(String[] args){
-
-	}
 }

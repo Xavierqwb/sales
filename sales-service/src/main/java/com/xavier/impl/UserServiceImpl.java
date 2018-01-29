@@ -22,8 +22,4 @@ public class UserServiceImpl implements UserService {
 	public UserModel verifyUser(String account, String password) {
 		return userDao.verifyUser(account, password);
 	}
-
-	public static void main(String[] args){
-
-	}
 }
