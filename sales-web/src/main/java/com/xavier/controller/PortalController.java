@@ -78,7 +78,7 @@ public class PortalController {
 	@RequestMapping("/publish")
 	@WebController
 	public String publish(HttpSession session) {
-		if (!verifyLogin(session)) {
+		if (!verifySeller(session)) {
 			return "error";
 		}
 		return "publish";
@@ -96,7 +96,7 @@ public class PortalController {
 	public String publishSubmit(@RequestBody String productForm,
 	                            HttpSession session,
 	                            ModelMap map) {
-		if (!verifyLogin(session)) {
+		if (!verifySeller(session)) {
 			return "error";
 		}
 		productService.publishProduct(productForm, map);
@@ -127,7 +127,7 @@ public class PortalController {
 	@RequestMapping(value = "/settleAccount")
 	@WebController
 	public String cart(HttpSession session) {
-		if (!verifyLogin(session)) {
+		if (!verifyBuyer(session)) {
 			return "error";
 		}
 		return "settleAccount";
@@ -142,7 +142,7 @@ public class PortalController {
 	@RequestMapping("/account")
 	@WebController
 	public String account(HttpSession session, ModelMap map) {
-		if (!verifyLogin(session)) {
+		if (!verifyBuyer(session)) {
 			return "error";
 		}
 		List<FinanceModel> financeModels = financeService.listFinances();
@@ -162,7 +162,7 @@ public class PortalController {
 	@RequestMapping("/edit")
 	@WebController
 	public String edit(@RequestParam("id") int id, HttpSession session, ModelMap map) {
-		if (!verifyLogin(session)) {
+		if (!verifySeller(session)) {
 			return "error";
 		}
 		ProductModel productModel = productService.getProduct(id);
@@ -183,7 +183,7 @@ public class PortalController {
 	@WebController
 	public String editSubmit(@RequestParam("id") int id, @RequestBody String editProductForm,
 	                         HttpSession session, ModelMap map) {
-		if (!verifyLogin(session)) {
+		if (!verifySeller(session)) {
 			return "error";
 		}
 		ProductModel productModel = ProductModel.parseProduct(editProductForm);
@@ -210,5 +210,15 @@ public class PortalController {
 	private boolean verifyLogin(HttpSession session) {
 		UserModel userModel = (UserModel) session.getAttribute("userModel");
 		return userModel != null;
+	}
+
+	private boolean verifyBuyer(HttpSession session) {
+		UserModel userModel = (UserModel) session.getAttribute("userModel");
+		return userModel != null && userModel.getType() == 1;
+	}
+
+	private boolean verifySeller(HttpSession session) {
+		UserModel userModel = (UserModel) session.getAttribute("userModel");
+		return userModel != null && userModel.getType() == 0;
 	}
 }
