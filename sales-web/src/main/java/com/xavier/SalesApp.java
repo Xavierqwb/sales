@@ -9,9 +9,8 @@ import org.springframework.context.annotation.ImportResource;
 /**
  * Created by xavier on 2018/1/21.
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.xavier")
 @EnableAspectJAutoProxy
-@ComponentScan("com.xavier")
 @ImportResource("classpath:spring.xml")
 public class SalesApp {
 
