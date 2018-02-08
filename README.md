@@ -24,3 +24,13 @@
 > 在命令行中使用mvn spring-boot:run指令启动，该启动方式运行后不存在上述启动方法中存在的问题
 
 应用启动后，在浏览器中访问[127.0.0.1:8080/sales](127.0.0.1:8080/sales)，请使用Chrome、Safari等webkit内核的浏览器！
+
+## docker容器运行
+
+安装了docker的话，可以使用docker运行该项目
+
+> docker build . -t sales:1.0.0
+
+在项目路径下执行上述指令，会生成名为sales，tag为1.0.0的image并加入到docker中，接下来在命令行执行`docker run -p 8080:8080 --name sales -d sales:1.0.0`即可运行
+
+> tips: 在docker中运行应用的话，注意mysql的配置哦！
