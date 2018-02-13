@@ -37,10 +37,7 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public void quit(HttpSession session) {
-		UserModel userModel = (UserModel) session.getAttribute("userModel");
-		if (userModel != null) {
-			session.removeAttribute("userModel");
-			logger.info("User[{}] quited.", userModel.getAccount());
-		}
+		logger.info("User quited.");
+		session.invalidate();
 	}
 }
